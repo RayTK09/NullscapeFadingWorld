@@ -16,10 +16,14 @@ shape = SubResource("CapsuleShape3D_2qw5g")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=435413619]
 mesh = SubResource("CapsuleMesh_2qw5g")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1452800248]
+[node name="pivotX" type="Node3D" parent="." unique_id=341366998]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="pivotY" type="Node3D" parent="pivotX" unique_id=1021014850]
+
+[node name="SpringArm3D" type="SpringArm3D" parent="pivotX/pivotY" unique_id=1452800248]
 spring_length = 4.0
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=38744909]
+[node name="Camera3D" type="Camera3D" parent="pivotX/pivotY/SpringArm3D" unique_id=38744909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 fov = 90.0

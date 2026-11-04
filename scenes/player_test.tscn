@@ -32,9 +32,9 @@ shadow_enabled = true
 environment = SubResource("Environment_6p80c")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=953295335]
+transform = Transform3D(16, 0, 0, 0, 0.08369893, 0, 0, 0, 16, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1484022523]
-transform = Transform3D(3.5, 0, 0, 0, 0.050000012, 0, 0, 0, 3.5, 0, 0, 0)
 shape = SubResource("BoxShape3D_78ya6")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/CollisionShape3D" unique_id=148345599]
