@@ -1,23 +1,20 @@
 [gd_scene format=3 uid="uid://cnkxs86u0auoj"]
 
 [ext_resource type="Script" uid="uid://b546xlingnjhv" path="res://scripts/Player.gd" id="1_3vyb7"]
+[ext_resource type="PackedScene" uid="uid://0a8xohm43x3b" path="res://scenes/playerMesh.tscn" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2qw5g"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_2qw5g"]
 
 [node name="Player" type="CharacterBody3D" unique_id=1641364127]
 collision_layer = 2
 script = ExtResource("1_3vyb7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=305454600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2qw5g")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=435413619]
-mesh = SubResource("CapsuleMesh_2qw5g")
-
 [node name="pivotX" type="Node3D" parent="." unique_id=341366998]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="pivotY" type="Node3D" parent="pivotX" unique_id=1021014850]
 
@@ -27,3 +24,6 @@ spring_length = 4.0
 [node name="Camera3D" type="Camera3D" parent="pivotX/pivotY/SpringArm3D" unique_id=38744909]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 fov = 90.0
+
+[node name="charMesh" parent="." unique_id=88840611 node_paths=PackedStringArray("player") instance=ExtResource("2_g2els")]
+player = NodePath("..")

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://0a8xohm43x3b"]
+
+[ext_resource type="PackedScene" uid="uid://bwpj3kgkup1b6" path="res://assets/char/nullscapeChar.gltf" id="1_l8plq"]
+[ext_resource type="Script" uid="uid://o0auyioakt27" path="res://scripts/playerModel.gd" id="2_tb4rt"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8plq"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_l8plq"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tb4rt"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nv44g"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_l8plq"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_efend"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_78ya6"]
+graph_offset = Vector2(-186.00412, 104.33113)
+nodes/output/position = Vector2(820, 160)
+nodes/idle/node = SubResource("AnimationNodeAnimation_tb4rt")
+nodes/idle/position = Vector2(40, 120)
+"nodes/idle to run/node" = SubResource("AnimationNodeBlend2_l8plq")
+"nodes/idle to run/position" = Vector2(260, 180)
+nodes/run/node = SubResource("AnimationNodeAnimation_efend")
+nodes/run/position = Vector2(40, 300)
+nodes/jump/node = SubResource("AnimationNodeAnimation_nv44g")
+nodes/jump/position = Vector2(360, -20)
+nodes/fall/node = SubResource("AnimationNodeAnimation_l8plq")
+nodes/fall/position = Vector2(320, 460)
+nodes/jumping/node = SubResource("AnimationNodeBlend3_l8plq")
+nodes/jumping/position = Vector2(560, 180)
+node_connections = [&"output", 0, &"jumping", &"idle to run", 0, &"idle", &"idle to run", 1, &"run", &"jumping", 0, &"jump", &"jumping", 1, &"idle to run", &"jumping", 2, &"fall"]
+
+[node name="charMesh" unique_id=88840611 instance=ExtResource("1_l8plq")]
+script = ExtResource("2_tb4rt")
+
+[node name="Waist" parent="." index="0" unique_id=822270839]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75080556, 0)
+
+[node name="Right Arm2" parent="Waist" index="2" unique_id=901273139]
+transform = Transform3D(0.9968262, -0.079608604, 0, 0.079608604, 0.9968262, 0, 0, 0, 1, 0.3125, 0.625, 0)
+
+[node name="Left Arm2" parent="Waist" index="3" unique_id=25226578]
+transform = Transform3D(0.9968262, 0.079608604, 0, -0.079608604, 0.9968262, 0, 0, 0, 1, -0.3125, 0.625, 0)
+
+[node name="Right Leg2" parent="." index="1" unique_id=883583793]
+transform = Transform3D(0.9961947, -0.08715574, 0, 0.08715574, 0.9961947, 0, 0, 0, 1, 0.11875, 0.75, 0)
+
+[node name="Left Leg2" parent="." index="2" unique_id=325350379]
+transform = Transform3D(0.99904823, 0.043453433, -0.0038012923, -0.04345343, 0.99905545, 8.322849e-05, 0.0038013184, 8.20299e-05, 0.9999928, -0.11875, 0.75, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="4" unique_id=47245676]
+tree_root = SubResource("AnimationNodeBlendTree_78ya6")
+anim_player = NodePath("../AnimationPlayer")
+"parameters/idle to run/blend_amount" = 0.0
+parameters/jumping/blend_amount = 0.0
