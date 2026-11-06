@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://bdwmxu026gtgl"]
+
+[ext_resource type="Script" uid="uid://c73rji7y21d2s" path="res://scripts/spawn.gd" id="1_cbyj8"]
+[ext_resource type="PackedScene" uid="uid://cnkxs86u0auoj" path="res://scenes/player.tscn" id="1_nshhi"]
+[ext_resource type="PackedScene" uid="uid://dlxucooy3o4bj" path="res://scenes/Tiles/straightTile.tscn" id="3_3skx7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2qw5g"]
+
+[node name="Spawn" type="Node3D" unique_id=711119345]
+script = ExtResource("1_cbyj8")
+
+[node name="spawnTile" type="Node3D" parent="." unique_id=177670310]
+transform = Transform3D(4, 0, 0, 0, 0.3, 0, 0, 0, 4, 0, -0.15, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="spawnTile" unique_id=600347115]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="spawnTile/StaticBody3D" unique_id=1840431032]
+shape = SubResource("BoxShape3D_2qw5g")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="spawnTile/StaticBody3D" unique_id=1138575014]
+mesh = SubResource("BoxMesh_2qw5g")
+
+[node name="startTile" type="Marker3D" parent="spawnTile" unique_id=2030121574]
+transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, 0, 0, -0.50000006)
+
+[node name="startTile2" type="Marker3D" parent="spawnTile" unique_id=865685879]
+transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, -0.50000006, 0, 0)
+
+[node name="startTile3" type="Marker3D" parent="spawnTile" unique_id=1884806432]
+transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, 0.50000006, 0, 0)
+
+[node name="startTile4" type="Marker3D" parent="spawnTile" unique_id=686566263]
+transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, 0, 0, 0.50000006)
+
+[node name="Player" parent="." unique_id=1641364127 instance=ExtResource("1_nshhi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.053180814, 0)
+
+[node name="startTile" parent="." unique_id=1104592383 instance=ExtResource("3_3skx7")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 5, 0, 0)
+
+[node name="startTile2" parent="." unique_id=476794385 instance=ExtResource("3_3skx7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 0)
+
+[node name="startTile3" parent="." unique_id=612549186 instance=ExtResource("3_3skx7")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -5)
+
+[node name="startTile4" parent="." unique_id=116501312 instance=ExtResource("3_3skx7")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 5)
