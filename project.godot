@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="NullscapeFadingWorld"
-run/main_scene="uid://bt1wlqirgu33j"
+run/main_scene="uid://bdwmxu026gtgl"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 

@@ -4,6 +4,7 @@ class_name player
 extends CharacterBody3D
 
 const JUMP_VELOCITY = 4.5
+const AIR_ACCELERATION = 2.5
 
 @onready var globals : global = get_node("/root/Global")
 @onready var camera : Camera3D = $pivotX/pivotY/SpringArm3D/Camera3D
@@ -27,7 +28,7 @@ var lastDir := Vector3.FORWARD
 
 func _ready() -> void:
 	camera.fov = globals.playerFov
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _input(event: InputEvent) -> void:
@@ -74,7 +75,7 @@ func _physics_process(delta: float) -> void:
 		currentAnimation = 4
 	
 	#why does movement have to be so difficult
-	print(velocity)
+	#print(velocity)
 	var input_dir := Input.get_vector("Left", "Right", "Forward", "Backward")
 	var direction := (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	direction.y = 0
@@ -97,6 +98,18 @@ func _physics_process(delta: float) -> void:
 	elif is_on_floor():
 		velocity.z = move_toward(velocity.z , 0, acceleration * delta)
 		currentAnimation = 1
+		
+	#AIR CONTROL
+	if direction.x and !is_on_floor():
+		velocity.x = move_toward(velocity.x , maxSpeed * direction.x, AIR_ACCELERATION * delta)
+		mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+	elif !is_on_floor():
+		velocity.x = move_toward(velocity.x , 0, acceleration * delta)
+	if direction.z and !is_on_floor():
+		velocity.z = move_toward(velocity.z , maxSpeed * direction.z, AIR_ACCELERATION * delta)
+		mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+	elif !is_on_floor():
+		velocity.z = move_toward(velocity.z , 0, acceleration * delta)
 	
 	#turn to face the direction of where local z is and save the position so it dont rotate back to default
 	#special thanks to GDQuest
