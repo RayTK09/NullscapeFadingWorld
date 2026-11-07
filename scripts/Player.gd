@@ -24,6 +24,7 @@ var rotX : float
 var rotY : float
 var distanceToPlayer : int = 4
 var lastDir := Vector3.FORWARD
+var stop := false
 
 
 func _ready() -> void:
@@ -62,66 +63,67 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-	
-	if velocity.y > 0:
-		currentAnimation = 3
-
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	
-	if velocity.y <= 0:
-		currentAnimation = 4
-	
-	#why does movement have to be so difficult
-	#print(velocity)
-	var input_dir := Input.get_vector("Left", "Right", "Forward", "Backward")
-	var direction := (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	direction.y = 0
-	if direction.length() > 0.2:
-		lastDir = direction
-	var targetAngle := Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
-	if velocity.x == 0 and velocity.z == 0 and direction:
-		mesh.global_rotation.y = targetAngle
-	if direction.x and is_on_floor():
-		velocity.x = move_toward(velocity.x , maxSpeed * direction.x, acceleration * delta)
-		currentAnimation = 2
-		mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-	elif is_on_floor():
-		velocity.x = move_toward(velocity.x , 0, acceleration * delta)
-		currentAnimation = 1
-	if direction.z and is_on_floor():
-		velocity.z = move_toward(velocity.z , maxSpeed * direction.z, acceleration * delta)
-		currentAnimation = 2
-		mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-	elif is_on_floor():
-		velocity.z = move_toward(velocity.z , 0, acceleration * delta)
-		currentAnimation = 1
+	if !stop:
+		if not is_on_floor():
+			velocity += get_gravity() * delta
 		
-	#AIR CONTROL
-	if direction.x and !is_on_floor():
-		velocity.x = move_toward(velocity.x , maxSpeed * direction.x, AIR_ACCELERATION * delta)
-		mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-	elif !is_on_floor():
-		velocity.x = move_toward(velocity.x , 0, acceleration * delta)
-	if direction.z and !is_on_floor():
-		velocity.z = move_toward(velocity.z , maxSpeed * direction.z, AIR_ACCELERATION * delta)
-		mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-	elif !is_on_floor():
-		velocity.z = move_toward(velocity.z , 0, acceleration * delta)
-	
-	#turn to face the direction of where local z is and save the position so it dont rotate back to default
-	#special thanks to GDQuest
-	#https://youtu.be/JlgZtOFMdfc
-	
-	if velocity.x > maxSpeed:
-		velocity.x = maxSpeed
-	elif velocity.x < -maxSpeed:
-		velocity.x = -maxSpeed
-	if velocity.z > maxSpeed:
-		velocity.z = maxSpeed
-	elif velocity.z < -maxSpeed:
-		velocity.z = -maxSpeed
+		if velocity.y > 0:
+			currentAnimation = 3
 
-	move_and_slide()
+		if Input.is_action_just_pressed("Jump") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
+		
+		if velocity.y <= 0:
+			currentAnimation = 4
+		
+		#why does movement have to be so difficult
+		#print(velocity)
+		var input_dir := Input.get_vector("Left", "Right", "Forward", "Backward")
+		var direction := (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		direction.y = 0
+		if direction.length() > 0.2:
+			lastDir = direction
+		var targetAngle := Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
+		if velocity.x == 0 and velocity.z == 0 and direction:
+			mesh.global_rotation.y = targetAngle
+		if direction.x and is_on_floor():
+			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, acceleration * delta)
+			currentAnimation = 2
+			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+		elif is_on_floor():
+			velocity.x = move_toward(velocity.x , 0, acceleration * delta)
+			currentAnimation = 1
+		if direction.z and is_on_floor():
+			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, acceleration * delta)
+			currentAnimation = 2
+			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+		elif is_on_floor():
+			velocity.z = move_toward(velocity.z , 0, acceleration * delta)
+			currentAnimation = 1
+			
+		#AIR CONTROL
+		if direction.x and !is_on_floor():
+			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, AIR_ACCELERATION * delta)
+			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+		elif !is_on_floor():
+			velocity.x = move_toward(velocity.x , 0, acceleration * delta)
+		if direction.z and !is_on_floor():
+			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, AIR_ACCELERATION * delta)
+			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+		elif !is_on_floor():
+			velocity.z = move_toward(velocity.z , 0, acceleration * delta)
+		
+		#turn to face the direction of where local z is and save the position so it dont rotate back to default
+		#special thanks to GDQuest
+		#https://youtu.be/JlgZtOFMdfc
+		
+		if velocity.x > maxSpeed:
+			velocity.x = maxSpeed
+		elif velocity.x < -maxSpeed:
+			velocity.x = -maxSpeed
+		if velocity.z > maxSpeed:
+			velocity.z = maxSpeed
+		elif velocity.z < -maxSpeed:
+			velocity.z = -maxSpeed
+
+		move_and_slide()

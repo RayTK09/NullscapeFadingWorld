@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://bd02jmhoqdb4c"]
+
+[ext_resource type="PackedScene" uid="uid://cnkxs86u0auoj" path="res://scenes/player.tscn" id="1_o1atq"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5gu6x"]
+sky_top_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
+sky_horizon_color = Color(0.73966825, 0.73966813, 0.73966813, 1)
+ground_bottom_color = Color(0.25929382, 0.25929368, 0.25929365, 1)
+ground_horizon_color = Color(0.73966825, 0.73966813, 0.73966813, 1)
+
+[sub_resource type="Sky" id="Sky_q60fs"]
+sky_material = SubResource("ProceduralSkyMaterial_5gu6x")
+
+[sub_resource type="Environment" id="Environment_nqcc7"]
+background_mode = 2
+sky = SubResource("Sky_q60fs")
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_78ya6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2qw5g"]
+
+[node name="lobby" type="Node3D" unique_id=797032944]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=824325793]
+environment = SubResource("Environment_nqcc7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1048697884]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
+light_energy = 1.6
+shadow_enabled = true
+
+[node name="Platform" type="Node3D" parent="." unique_id=1467391618]
+transform = Transform3D(12, 0, 0, 0, 0.3, 0, 0, 0, 5.4, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Platform" unique_id=908788309]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platform/StaticBody3D" unique_id=2133611864]
+shape = SubResource("BoxShape3D_78ya6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Platform/StaticBody3D" unique_id=89710113]
+mesh = SubResource("BoxMesh_2qw5g")
+
+[node name="Player" parent="." unique_id=1641364127 instance=ExtResource("1_o1atq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29832876, 0)

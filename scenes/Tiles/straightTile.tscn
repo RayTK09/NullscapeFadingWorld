@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dlxucooy3o4bj"]
 
 [ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_le08w"]
+[ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="2_ds77n"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_78ya6"]
 
@@ -8,6 +9,7 @@
 
 [node name="straightTile" type="Marker3D" unique_id=971204657]
 script = ExtResource("1_le08w")
+giftAmount = 4
 
 [node name="control" type="Node3D" parent="." unique_id=462559101]
 transform = Transform3D(6, 0, 0, 0, 0.3, 0, 0, 0, 3, 3, 0, 0)
@@ -21,11 +23,27 @@ shape = SubResource("BoxShape3D_78ya6")
 mesh = SubResource("BoxMesh_2qw5g")
 
 [node name="Area3D" type="Area3D" parent="control" unique_id=1714599545]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=865310082]
 shape = SubResource("BoxShape3D_78ya6")
 
-[node name="connectorNodeEnd" type="Marker3D" parent="." unique_id=1425986409]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
+[node name="tileGifts" type="Node3D" parent="control" unique_id=281504640]
+
+[node name="gifts" parent="control/tileGifts" unique_id=1537245553 instance=ExtResource("2_ds77n")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.36666667, 3.3333333, 0)
+
+[node name="gifts2" parent="control/tileGifts" unique_id=1711935490 instance=ExtResource("2_ds77n")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.13333333, 3.3333333, 0)
+
+[node name="gifts3" parent="control/tileGifts" unique_id=1329220183 instance=ExtResource("2_ds77n")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.13333333, 3.3333333, 0)
+
+[node name="gifts4" parent="control/tileGifts" unique_id=1879347988 instance=ExtResource("2_ds77n")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.36666664, 3.3333333, 0)
+
+[node name="connectorNodeEnd" type="Marker3D" parent="control" unique_id=1425986409]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.5, 0, 0)
 
 [connection signal="area_entered" from="control/Area3D" to="." method="_on_area_3d_area_entered"]

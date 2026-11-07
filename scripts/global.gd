@@ -5,3 +5,4 @@ extends Node
 @export var playerSens : float = 0.01
 @export var playerClass : int = 1
 @export var currentLevel : int = 1
+@export var collectedGifts : int = 0

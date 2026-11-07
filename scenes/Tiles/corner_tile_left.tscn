@@ -1,26 +1,72 @@
 [gd_scene format=3 uid="uid://cvh776yf2fm6m"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pm6sx"]
+[ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_kwor3"]
+[ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="2_k37gc"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_kwor3"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_k37gc"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_clc6f"]
+size = Vector3(2, 1, 1)
 
 [node name="cornerTileLeft" type="Marker3D" unique_id=415194363]
+script = ExtResource("1_kwor3")
 
-[node name="control" type="Node3D" parent="." unique_id=1420464695]
+[node name="control" type="Node3D" parent="." unique_id=1512163282]
 transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 1.5, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1986305715]
+[node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1230156027]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=440006592]
-shape = SubResource("BoxShape3D_pm6sx")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=297044683]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50000006, 0, 0)
+shape = SubResource("BoxShape3D_k37gc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=23007867]
-mesh = SubResource("BoxMesh_kwor3")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=338671321]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -0.5)
+shape = SubResource("BoxShape3D_k37gc")
 
-[node name="Area3D" type="Area3D" parent="control" unique_id=3562642]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=1186057707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+mesh = SubResource("BoxMesh_clc6f")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=248127211]
-shape = SubResource("BoxShape3D_pm6sx")
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=1858759727]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, -0.5)
+mesh = SubResource("BoxMesh_clc6f")
 
-[node name="connectorNodeEnd" type="Marker3D" parent="." unique_id=917090868]
-transform = Transform3D(-1.3113416e-07, 0, 1, 0, 1, 0, -3, 0, -4.371139e-08, 1.5, 0, -1.5)
+[node name="Area3D" type="Area3D" parent="control" unique_id=923812413]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=257359894]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+shape = SubResource("BoxShape3D_k37gc")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="control/Area3D" unique_id=1977594899]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -0.5)
+shape = SubResource("BoxShape3D_k37gc")
+
+[node name="tileGifts" type="Node3D" parent="control" unique_id=1151751035]
+
+[node name="gifts" parent="control/tileGifts" unique_id=1537245553 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.16666663, 3.3333333, 0)
+
+[node name="gifts2" parent="control/tileGifts" unique_id=1591078807 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.20000002, 3.3333333, 0)
+
+[node name="gifts3" parent="control/tileGifts" unique_id=2046823323 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.6, 3.3333333, 0)
+
+[node name="gifts4" parent="control/tileGifts" unique_id=447152807 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 3.3333333, 0)
+
+[node name="gifts5" parent="control/tileGifts" unique_id=916072788 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 3.333, -0.43366668)
+
+[node name="gifts6" parent="control/tileGifts" unique_id=155833632 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 3.333, -0.8666666)
+
+[node name="gifts7" parent="control/tileGifts" unique_id=1353893875 instance=ExtResource("2_k37gc")]
+transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 3.333, -1.2663332)
+
+[node name="connectorNodeEnd" type="Marker3D" parent="control" unique_id=632943027]
+transform = Transform3D(-4.371139e-08, 0, 0.33333334, 0, 3.3333333, 0, -1, 0, -1.4570463e-08, 1.0000001, 0, -1.5)
