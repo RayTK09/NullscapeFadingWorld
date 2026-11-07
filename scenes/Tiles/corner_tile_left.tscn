@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cvh776yf2fm6m"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pm6sx"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kwor3"]
+
+[node name="cornerTileLeft" type="Marker3D" unique_id=415194363]
+
+[node name="control" type="Node3D" parent="." unique_id=1420464695]
+transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 1.5, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1986305715]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=440006592]
+shape = SubResource("BoxShape3D_pm6sx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=23007867]
+mesh = SubResource("BoxMesh_kwor3")
+
+[node name="Area3D" type="Area3D" parent="control" unique_id=3562642]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=248127211]
+shape = SubResource("BoxShape3D_pm6sx")
+
+[node name="connectorNodeEnd" type="Marker3D" parent="." unique_id=917090868]
+transform = Transform3D(-1.3113416e-07, 0, 1, 0, 1, 0, -3, 0, -4.371139e-08, 1.5, 0, -1.5)
