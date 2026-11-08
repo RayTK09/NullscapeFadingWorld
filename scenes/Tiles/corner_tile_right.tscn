@@ -9,13 +9,21 @@ size = Vector3(2, 1, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_v8bcu"]
 size = Vector3(2, 1, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_6eaxh"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_25fy5"]
+size = Vector3(2, 1, 1)
+
 [node name="cornerTileRight" type="Marker3D" unique_id=1958814681]
 script = ExtResource("1_pxwkv")
 
 [node name="control" type="Node3D" parent="." unique_id=1113723773]
-transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 1.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1218709798]
+transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)
+collision_layer = 9
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=422593176]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
@@ -26,7 +34,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0
 mesh = SubResource("BoxMesh_w4ehi")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=653663926]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50000006, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5000001, 0, 0)
 shape = SubResource("BoxShape3D_v8bcu")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=1313363239]
@@ -34,18 +42,20 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0
 shape = SubResource("BoxShape3D_v8bcu")
 
 [node name="Area3D" type="Area3D" parent="control" unique_id=1538503832]
+transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)
 collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="control/Area3D" unique_id=175610714]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-shape = SubResource("BoxShape3D_v8bcu")
+shape = SubResource("BoxShape3D_6eaxh")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="control/Area3D" unique_id=584109865]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, 0.5)
-shape = SubResource("BoxShape3D_v8bcu")
+shape = SubResource("BoxShape3D_25fy5")
 
 [node name="tileGifts" type="Node3D" parent="control" unique_id=781331590]
+transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="gifts" parent="control/tileGifts" unique_id=1537245553 instance=ExtResource("2_v8bcu")]
 transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.26666665, 3.3333333, 0)
@@ -69,4 +79,4 @@ transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 
 transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 3.3333333, 1.3000002)
 
 [node name="connectorNodeEnd" type="Marker3D" parent="control" unique_id=1415715723]
-transform = Transform3D(-4.371139e-08, 0, -0.33333334, 0, 3.3333333, 0, 1, 0, -1.4570463e-08, 0.99999994, 0, 1.5)
+transform = Transform3D(-1.3113416e-07, 0, -1, 0, 1, 0, 3, 0, -4.371139e-08, 2.9999995, 0, 4.5)

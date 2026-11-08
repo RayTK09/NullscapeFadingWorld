@@ -49,9 +49,9 @@ shadow_enabled = true
 environment = SubResource("Environment_3skx7")
 
 [node name="spawnTile" type="Node3D" parent="." unique_id=177670310]
-transform = Transform3D(5, 0, 0, 0, 0.3, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="spawnTile" unique_id=600347115]
+transform = Transform3D(5, 0, 0, 0, 0.3, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="spawnTile/StaticBody3D" unique_id=1840431032]
 shape = SubResource("BoxShape3D_2qw5g")
@@ -59,18 +59,6 @@ shape = SubResource("BoxShape3D_2qw5g")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="spawnTile/StaticBody3D" unique_id=1138575014]
 mesh = SubResource("BoxMesh_2qw5g")
 surface_material_override/0 = SubResource("StandardMaterial3D_ofwii")
-
-[node name="startTile" type="Marker3D" parent="spawnTile" unique_id=2030121574]
-transform = Transform3D(-8.742278e-09, 0, 0.20000002, 0, 3.3333335, 0, -0.20000002, 0, -8.742278e-09, 0, 0, -0.50000006)
-
-[node name="startTile2" type="Marker3D" parent="spawnTile" unique_id=865685879]
-transform = Transform3D(-0.20000002, 0, -1.7484556e-08, 0, 3.3333335, 0, 1.7484556e-08, 0, -0.20000002, -0.50000006, 0, 0)
-
-[node name="startTile3" type="Marker3D" parent="spawnTile" unique_id=1884806432]
-transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, 0.50000006, 0, 0)
-
-[node name="startTile4" type="Marker3D" parent="spawnTile" unique_id=686566263]
-transform = Transform3D(-8.742278e-09, 0, -0.20000002, 0, 3.3333335, 0, 0.20000002, 0, -8.742278e-09, 0, 0, 0.50000006)
 
 [node name="beacon" type="Area3D" parent="spawnTile" unique_id=1278606414]
 transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, 0, 0, 0)
@@ -96,6 +84,18 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.33400917, 0)
 [node name="toLobby" type="Timer" parent="." unique_id=1207376547]
 wait_time = 2.0
 one_shot = true
+
+[node name="startTile" type="Marker3D" parent="." unique_id=372868654]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -2.5)
+
+[node name="startTile2" type="Marker3D" parent="." unique_id=1724363369]
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, -2.5, 0, 0)
+
+[node name="startTile3" type="Marker3D" parent="." unique_id=1391013551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
+
+[node name="startTile4" type="Marker3D" parent="." unique_id=1922658012]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 2.5)
 
 [connection signal="body_entered" from="spawnTile/beacon" to="." method="_on_beacon_body_entered"]
 [connection signal="timeout" from="toLobby" to="." method="_on_to_lobby_timeout"]
