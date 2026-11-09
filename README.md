@@ -2,10 +2,10 @@
 My attempt at recreating nullscape. But only til patch 5 because I don't exactly want to copy 100% of the game.
 
 # Whats currently in the game
-currently there is:
--player movement
--gift collection (the squares)
--progression through levels
+currently there is:<br>
+-player movement<br>
+-gift collection (the squares)<br>
+-progression through levels<br>
 
 # How to play
 If you've never played nullscape before, here are the basics.<br>
