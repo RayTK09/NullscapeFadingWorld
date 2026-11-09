@@ -1,6 +1,19 @@
 # Nullscape: Fading World
 My attempt at recreating nullscape. But only til patch 5 because I don't exactly want to copy 100% of the game.
 
+# Whats currently in the game
+currently there is:
+-player movement
+-gift collection (the squares)
+-progression through levels
+
+# How to play
+If you've never played nullscape before, here are the basics.
+there are squares you must collect. Collect them all and the way to the next level opens up,
+located at the center of the map where you spawned. This would have been made difficult by 
+different enemies, but I was spending most of my time trying to figure out tile generation so 
+you'll have to wait for the next update for that
+
 # The original game
 https://www.roblox.com/games/129279692364812/Nullscape
 
