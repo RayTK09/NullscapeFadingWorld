@@ -61,7 +61,7 @@ mesh = SubResource("BoxMesh_2qw5g")
 surface_material_override/0 = SubResource("StandardMaterial3D_ofwii")
 
 [node name="beacon" type="Area3D" parent="spawnTile" unique_id=1278606414]
-transform = Transform3D(0.20000002, 0, 0, 0, 3.3333335, 0, 0, 0, 0.20000002, 0, 0, 0)
+transform = Transform3D(1.2200001, 0, 0, 0, 3.3333335, 0, 0, 0, 1.2200001, 0, 0, 0)
 visible = false
 collision_layer = 0
 collision_mask = 2
@@ -97,5 +97,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 0)
 [node name="startTile4" type="Marker3D" parent="." unique_id=1922658012]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 2.5)
 
+[node name="spawnTiles" type="Timer" parent="." unique_id=705803118]
+wait_time = 0.1
+autostart = true
+
 [connection signal="body_entered" from="spawnTile/beacon" to="." method="_on_beacon_body_entered"]
 [connection signal="timeout" from="toLobby" to="." method="_on_to_lobby_timeout"]
+[connection signal="timeout" from="spawnTiles" to="." method="_on_spawn_platforms_timeout"]

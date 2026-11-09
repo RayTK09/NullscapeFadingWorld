@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="NullscapeFadingWorld"
-run/main_scene="uid://bdwmxu026gtgl"
+run/main_scene="uid://dny40e0dhlcy"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
@@ -91,7 +91,7 @@ zoomOut={
 [physics]
 
 3d/physics_engine="Jolt Physics"
-3d/default_gravity=9.799999999999997
+3d/default_gravity=9.799999999999995
 
 [rendering]
 
