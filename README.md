@@ -9,7 +9,8 @@ currently there is:
 
 # How to play
 If you've never played nullscape before, here are the basics.
-there are squares you must collect. Collect them all and the way to the next level opens up,
+WASD to move, SPACE to jump.
+There are squares you must collect. Collect them all and the way to the next level opens up,
 located at the center of the map where you spawned. This would have been made difficult by 
 different enemies, but I was spending most of my time trying to figure out tile generation so 
 you'll have to wait for the next update for that
