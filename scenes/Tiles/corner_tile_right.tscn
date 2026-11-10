@@ -43,7 +43,7 @@ shape = SubResource("BoxShape3D_v8bcu")
 
 [node name="Area3D" type="Area3D" parent="control" unique_id=1538503832]
 transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)
-collision_layer = 8
+collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="control/Area3D" unique_id=175610714]

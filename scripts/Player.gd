@@ -29,13 +29,12 @@ var stop := false
 
 func _ready() -> void:
 	camera.fov = globals.playerFov
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _input(event: InputEvent) -> void:
 	#I got this camera movement script from the godot wiki
 	#https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED or event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		rotX -= event.screen_relative.x * globals.playerSens
 		rotY -= event.screen_relative.y * globals.playerSens
 		camPivotX.transform.basis = Basis()
@@ -46,6 +45,11 @@ func _input(event: InputEvent) -> void:
 		camPivotY.rotation.x = clampf(camPivotY.rotation.x, -(PI / 2), PI / 2)
 		rotY = clampf(rotY, -(PI / 2), PI / 2)
 		#print(camPivot.rotation_degrees.x)
+		
+	if Input.is_action_just_pressed("unlock Mouse") and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	elif Input.is_action_just_pressed("unlock Mouse") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	if Input.is_action_just_pressed("zoomIn"):
 		var tween = get_tree().create_tween()

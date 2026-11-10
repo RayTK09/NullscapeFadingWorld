@@ -16,7 +16,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 3
+var tileLimit : int = 50
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0
@@ -34,7 +34,7 @@ func _ready() -> void:
 	maxGifts = 0
 	spawners = [tileStart1, tileStart2, tileStart3, tileStart4]
 	for i in spawners.size():
-		spawners[i].add_child(straightTile.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE))
+		spawners[i].add_child(straightTile.instantiate())
 		var tiles = spawners[i].get_children()
 	maxGifts += 16
 	
@@ -57,19 +57,19 @@ func placeTiles(spawner):
 	#choose a tile type to use
 	var chooseTileType = rng.randi_range(0, 100)
 	if chooseTileType <= 40:
-		spawner.add_child(straightTile.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE))
+		spawner.add_child(straightTile.instantiate())
 		maxGifts += 4 
 	elif chooseTileType > 40 and chooseTileType <= 55:
-		spawner.add_child(cornerTileLeft.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE))
+		spawner.add_child(cornerTileLeft.instantiate())
 		maxGifts += 7
 	elif chooseTileType > 55 and chooseTileType <= 70:
-		spawner.add_child(cornerTileRight.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE))
+		spawner.add_child(cornerTileRight.instantiate())
 		maxGifts += 7
 	elif chooseTileType > 70 and chooseTileType <= 85:
-		spawner.add_child(slopeUp.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE))
+		spawner.add_child(slopeUp.instantiate())
 		maxGifts += 4
 	elif chooseTileType > 85:
-		spawner.add_child(slopeDown.instantiate(PackedScene.GEN_EDIT_STATE_INSTANCE))
+		spawner.add_child(slopeDown.instantiate())
 		maxGifts += 4
 	
 	tiles = spawner.get_children()
@@ -78,22 +78,7 @@ func placeTiles(spawner):
 	newTile.global_position = connectingTile.connectorEnd.global_position
 	newTile.global_rotation = connectingTile.connectorEnd.global_rotation
 	
-	#await get_tree().process_frame
-	#var getCollisions = newTile.checkCollision.get_overlapping_bodies()
-	#print(getCollisions)
-	#if len(getCollisions) > 1:
-		#print("tile removed")
-		#newTile.free_queue()
-	checkCollision(newTile)
 
-
-func checkCollision(newTile):
-	await get_tree().process_frame
-	var getCollisions = newTile.checkCollision.get_overlapping_bodies()
-	print(getCollisions)
-	if len(getCollisions) > 1:
-		print("tile removed")
-		newTile.free_queue()
 
 
 func _on_beacon_body_entered(body: Node3D) -> void:
@@ -121,3 +106,7 @@ func _on_spawn_platforms_timeout() -> void:
 			placeTiles(spawners[2])
 		4:
 			placeTiles(spawners[3])
+
+
+func _on_button_pressed() -> void:
+	get_tree().reload_current_scene()

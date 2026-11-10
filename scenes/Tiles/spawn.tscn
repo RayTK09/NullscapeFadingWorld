@@ -77,7 +77,7 @@ material_override = SubResource("StandardMaterial3D_nilot")
 mesh = SubResource("BoxMesh_78ya6")
 
 [node name="Player" parent="." unique_id=1641364127 instance=ExtResource("1_nshhi")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.33400917, 0)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.33, 0)
 
 [node name="activeTiles" type="Node3D" parent="." unique_id=305303666]
 
@@ -101,6 +101,12 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0
 wait_time = 0.1
 autostart = true
 
+[node name="Button" type="Button" parent="." unique_id=617813753]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Regenerate Map"
+
 [connection signal="body_entered" from="spawnTile/beacon" to="." method="_on_beacon_body_entered"]
 [connection signal="timeout" from="toLobby" to="." method="_on_to_lobby_timeout"]
 [connection signal="timeout" from="spawnTiles" to="." method="_on_spawn_platforms_timeout"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
