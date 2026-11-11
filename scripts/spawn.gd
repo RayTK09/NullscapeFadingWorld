@@ -9,6 +9,7 @@ extends Node3D
 @onready var cornerTileLeft = preload("res://scenes/Tiles/corner_tile_left.tscn")
 @onready var slopeUp = preload("res://scenes/Tiles/slope_up.tscn")
 @onready var slopeDown = preload("res://scenes/Tiles/slope_down.tscn")
+@onready var plus = preload("res://scenes/Tiles/plus.tscn")
 @onready var activeTiles := $activeTiles
 @onready var globals : global = get_node("/root/Global")
 @onready var beacon := $spawnTile/beacon
@@ -37,46 +38,58 @@ func _ready() -> void:
 		spawners[i].add_child(straightTile.instantiate())
 		var tiles = spawners[i].get_children()
 	maxGifts += 16
+	player.stop = true
 	
 	beacon.monitoring = false
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if globals.collectedGifts == maxGifts:
 		beacon.visible = true
 		beacon.monitoring = true
 	#spawn tiles
 	if tilesSpawned == tileLimit:
 		spawnTiles.stop()
+		player.stop = false
+
 
 func placeTiles(spawner):
-	var tiles : Array
-	tiles = spawner.get_children()
-	var connectingTile = tiles[tiles.size() - 1]
+	var tiles = spawner.get_children()
+	var chooseTile = rng.randi_range(0, tiles.size() - 1)
+	var connectingTile = tiles[chooseTile]
+	var connectorPoint : int
+	for i in connectingTile.connectors.size():
+		if !connectingTile.connectors[i].isConnected:
+			connectingTile.connectors[i].isConnected = true
+			connectorPoint = i
+			print(connectingTile.connectors[i].isConnected)
+			break
+			 
+	if connectingTile.connectors[connectorPoint].isConnected:
+		tilesSpawned -= 1
+		return
+	
 	#choose a tile type to use
-	var chooseTileType = rng.randi_range(0, 100)
+	var chooseTileType = rng.randi_range(0, 120)
 	if chooseTileType <= 40:
 		spawner.add_child(straightTile.instantiate())
-		maxGifts += 4 
 	elif chooseTileType > 40 and chooseTileType <= 55:
 		spawner.add_child(cornerTileLeft.instantiate())
-		maxGifts += 7
 	elif chooseTileType > 55 and chooseTileType <= 70:
 		spawner.add_child(cornerTileRight.instantiate())
-		maxGifts += 7
 	elif chooseTileType > 70 and chooseTileType <= 85:
 		spawner.add_child(slopeUp.instantiate())
-		maxGifts += 4
-	elif chooseTileType > 85:
+	elif chooseTileType > 85 and chooseTileType <= 110:
 		spawner.add_child(slopeDown.instantiate())
-		maxGifts += 4
+	elif chooseTileType > 110:
+		spawner.add_child(plus.instantiate())
 	
 	tiles = spawner.get_children()
 	var newTile = tiles.get(tiles.size() - 1)
-	connectingTile.connected += 1
-	newTile.global_position = connectingTile.connectorEnd.global_position
-	newTile.global_rotation = connectingTile.connectorEnd.global_rotation
+	maxGifts += newTile.giftAmount
+	newTile.global_position = connectingTile.connectors[connectorPoint].global_position
+	newTile.global_rotation = connectingTile.connectors[connectorPoint].global_rotation
 	
 
 
@@ -95,7 +108,7 @@ func _on_to_lobby_timeout() -> void:
 
 func _on_spawn_platforms_timeout() -> void:
 	tilesSpawned += 1
-	print(tilesSpawned)
+	#print(tilesSpawned)
 	var chooseStarting = rng.randi_range(1, 4)
 	match chooseStarting:
 		1:

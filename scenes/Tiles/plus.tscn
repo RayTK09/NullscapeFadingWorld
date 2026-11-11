@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://dp8scnhmie28v"]
+
+[ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_c3dul"]
+[ext_resource type="PackedScene" uid="uid://vbc8ilx2wh25" path="res://assets/plusTile.gltf" id="2_lrsl3"]
+[ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_lrsl3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
+size = Vector3(9.005154, 0.31346893, 3.001576)
+
+[node name="plus" type="Marker3D" unique_id=1899228530]
+script = ExtResource("1_c3dul")
+giftAmount = 1
+
+[node name="control" type="Node3D" parent="." unique_id=1574876079]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.62, 0, 1.5)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1004241964]
+
+[node name="blockbench_export" parent="control/StaticBody3D" unique_id=984205732 instance=ExtResource("2_lrsl3")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=824461541]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031806946, -0.00023269653, -1.4999542)
+shape = SubResource("BoxShape3D_2qw5g")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=1475825995]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0016422272, -0.00023269653, -1.4920063)
+shape = SubResource("BoxShape3D_2qw5g")
+
+[node name="Area3D" type="Area3D" parent="control" unique_id=1354268218]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=1172489035]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031806946, -0.00023269653, -1.4999542)
+shape = SubResource("BoxShape3D_2qw5g")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="control/Area3D" unique_id=1380703563]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0016422272, -0.00023269653, -1.4920063)
+shape = SubResource("BoxShape3D_2qw5g")
+
+[node name="connectors" type="Node3D" parent="control" unique_id=249841995]
+
+[node name="connectorNode" type="Marker3D" parent="control/connectors" unique_id=212192272]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, -6)
+script = ExtResource("3_lrsl3")
+
+[node name="connectorNode2" type="Marker3D" parent="control/connectors" unique_id=1981649903]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 3.015737)
+script = ExtResource("3_lrsl3")
+
+[node name="connectorNode3" type="Marker3D" parent="control/connectors" unique_id=2340777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5044527, 0, -1.5)
+script = ExtResource("3_lrsl3")
