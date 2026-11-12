@@ -5,6 +5,7 @@ extends Node3D
 @onready var checkCollision := $control/Area3D
 
 @export var giftAmount : int = 0
+@export var type : String
 
 var rng = RandomNumberGenerator.new()
 

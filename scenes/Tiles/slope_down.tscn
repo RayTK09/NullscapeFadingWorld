@@ -6,6 +6,7 @@
 
 [node name="slopeDown" type="Marker3D" unique_id=207635213]
 script = ExtResource("1_qhslw")
+type = "slopeDown"
 
 [node name="control" type="Node3D" parent="." unique_id=2017383695]
 transform = Transform3D(-3, 0, 2.6226832e-07, 0, 0.3, 0, -2.6226832e-07, 0, -3, 5.867276, -7.3799996, 3.779507e-07)
@@ -15,7 +16,7 @@ collision_layer = 8
 collision_mask = 8
 
 [node name="CollisionPolygon3D" type="CollisionPolygon3D" parent="control/Area3D" unique_id=843107191]
-polygon = PackedVector2Array(-0.5062517, -0.5189962, -0.2834927, -0.52931106, 1.7814813, 24.084044, 1.9448438, 24.081171, 1.944464, 25.115921, 1.7191684, 25.077116, -0.3190067, 0.5258388, -0.5067048, 0.5209969)
+polygon = PackedVector2Array(-0.5062517, -0.5189962, -0.2834927, -0.52931106, 1.7814813, 24.084044, 1.9448438, 24.081171, 1.944464, 25.115921, 1.2394032, 25.199263, -0.32806516, 3.8423386, -0.5067048, 0.5209969)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=2070919530]
 collision_layer = 9

@@ -19,12 +19,14 @@ const AIR_ACCELERATION = 2.5
 
 var speedMultiplier : int = 1
 var maxSpeed : float = 3.0
-var acceleration : float = 5.0
+var acceleration : float = 6.0
 var rotX : float
 var rotY : float
 var distanceToPlayer : int = 4
 var lastDir := Vector3.FORWARD
 var stop := false
+var quickTurning := false
+var mousePos : Vector2
 
 
 func _ready() -> void:
@@ -41,6 +43,7 @@ func _input(event: InputEvent) -> void:
 		camPivotY.transform.basis = Basis()
 		camPivotY.rotate_x(rotY)
 		camPivotX.rotate_y(rotX)
+		mousePos = event.position
 		
 		camPivotY.rotation.x = clampf(camPivotY.rotation.x, -(PI / 2), PI / 2)
 		rotY = clampf(rotY, -(PI / 2), PI / 2)
@@ -62,8 +65,8 @@ func _input(event: InputEvent) -> void:
 		var tween = get_tree().create_tween()
 		distanceToPlayer += 1
 		tween.tween_property(arm, "spring_length", distanceToPlayer, 0.2)
-	if distanceToPlayer > 30:
-		distanceToPlayer = 30
+		if distanceToPlayer > 30:
+			distanceToPlayer = 30
 
 
 func _physics_process(delta: float) -> void:
@@ -79,6 +82,9 @@ func _physics_process(delta: float) -> void:
 		
 		if velocity.y <= 0:
 			currentAnimation = 4
+			
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			Input.warp_mouse(mousePos)
 		
 		#why does movement have to be so difficult
 		#print(velocity)
@@ -90,20 +96,32 @@ func _physics_process(delta: float) -> void:
 		var targetAngle := Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
 		if velocity.x == 0 and velocity.z == 0 and direction:
 			mesh.global_rotation.y = targetAngle
-		if direction.x and is_on_floor():
+		if direction.x and Input.is_action_pressed("Right") and velocity < Vector3(0, velocity.y, 0) and is_on_floor() and !quickTurning:
+			velocity.x = move_toward(velocity.x , 0, acceleration * delta)
+			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			quickTurning = false
+		elif direction.x and Input.is_action_pressed("Left") and velocity > Vector3(0, velocity.y, 0) and is_on_floor() and !quickTurning:
+			velocity.x = move_toward(velocity.x , 0, acceleration * delta)
+			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			quickTurning = false
+		elif direction.x and is_on_floor():
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, acceleration * delta)
 			currentAnimation = 2
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 		elif is_on_floor():
 			velocity.x = move_toward(velocity.x , 0, acceleration * delta)
 			currentAnimation = 1
-		if direction.z and is_on_floor():
+		else:
+			quickTurning = false
+		if direction.z and is_on_floor() and !quickTurning:
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, acceleration * delta)
 			currentAnimation = 2
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 		elif is_on_floor():
 			velocity.z = move_toward(velocity.z , 0, acceleration * delta)
 			currentAnimation = 1
+		
+			
 			
 		#AIR CONTROL
 		if direction.x and !is_on_floor():

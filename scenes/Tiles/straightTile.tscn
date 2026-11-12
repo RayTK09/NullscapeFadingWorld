@@ -11,6 +11,7 @@ size = Vector3(6, 0.30996093, 3)
 [node name="straightTile" type="Marker3D" unique_id=971204657]
 script = ExtResource("1_le08w")
 giftAmount = 4
+type = "straight"
 
 [node name="control" type="Node3D" parent="." unique_id=462559101]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.02, 0, 0)

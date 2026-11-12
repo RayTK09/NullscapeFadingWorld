@@ -17,7 +17,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 50
+var tileLimit : int = 5
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0
@@ -63,33 +63,33 @@ func placeTiles(spawner):
 		if !connectingTile.connectors[i].isConnected:
 			connectingTile.connectors[i].isConnected = true
 			connectorPoint = i
-			print(connectingTile.connectors[i].isConnected)
-			break
-			 
+			#choose a tile type to use
+			var chooseTileType = rng.randi_range(0, 120)
+			if chooseTileType <= 40:
+				spawner.add_child(straightTile.instantiate())
+			elif chooseTileType > 40 and chooseTileType <= 55:
+				spawner.add_child(cornerTileLeft.instantiate())
+			elif chooseTileType > 55 and chooseTileType <= 70:
+				spawner.add_child(cornerTileRight.instantiate())
+			elif chooseTileType > 70 and chooseTileType <= 85 and !connectingTile.type == "slopeUp" or !connectingTile.type == "slopeDown":
+				spawner.add_child(slopeUp.instantiate())
+				print(connectingTile.type)
+			elif chooseTileType > 85 and chooseTileType <= 110 and !connectingTile.type == "slopeUp" or !connectingTile.type == "slopeDown":
+				spawner.add_child(slopeDown.instantiate())
+				print(connectingTile.type)
+			elif chooseTileType > 110:
+				spawner.add_child(plus.instantiate())
+			
+			tiles = spawner.get_children()
+			var newTile = tiles.get(tiles.size() - 1)
+			maxGifts += newTile.giftAmount
+			newTile.global_position = connectingTile.connectors[connectorPoint].global_position
+			newTile.global_rotation = connectingTile.connectors[connectorPoint].global_rotation
+			return
+		
 	if connectingTile.connectors[connectorPoint].isConnected:
 		tilesSpawned -= 1
-		return
 	
-	#choose a tile type to use
-	var chooseTileType = rng.randi_range(0, 120)
-	if chooseTileType <= 40:
-		spawner.add_child(straightTile.instantiate())
-	elif chooseTileType > 40 and chooseTileType <= 55:
-		spawner.add_child(cornerTileLeft.instantiate())
-	elif chooseTileType > 55 and chooseTileType <= 70:
-		spawner.add_child(cornerTileRight.instantiate())
-	elif chooseTileType > 70 and chooseTileType <= 85:
-		spawner.add_child(slopeUp.instantiate())
-	elif chooseTileType > 85 and chooseTileType <= 110:
-		spawner.add_child(slopeDown.instantiate())
-	elif chooseTileType > 110:
-		spawner.add_child(plus.instantiate())
-	
-	tiles = spawner.get_children()
-	var newTile = tiles.get(tiles.size() - 1)
-	maxGifts += newTile.giftAmount
-	newTile.global_position = connectingTile.connectors[connectorPoint].global_position
-	newTile.global_rotation = connectingTile.connectors[connectorPoint].global_rotation
 	
 
 
@@ -108,7 +108,7 @@ func _on_to_lobby_timeout() -> void:
 
 func _on_spawn_platforms_timeout() -> void:
 	tilesSpawned += 1
-	#print(tilesSpawned)
+	print(tilesSpawned)
 	var chooseStarting = rng.randi_range(1, 4)
 	match chooseStarting:
 		1:

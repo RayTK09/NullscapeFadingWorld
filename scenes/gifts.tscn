@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cadmlxx4t8pmk"]
 
-[ext_resource type="Script" uid="uid://dlf0jamcqfwjx" path="res://scripts/gifts.gd" id="1_k2biq"]
+[ext_resource type="Script" uid="uid://dlf0jamcqfwjx" path="res://scripts/tileScripts/gifts.gd" id="1_k2biq"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_78ya6"]
 
