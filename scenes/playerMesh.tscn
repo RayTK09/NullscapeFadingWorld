@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://0a8xohm43x3b"]
 
 [ext_resource type="PackedScene" uid="uid://bwpj3kgkup1b6" path="res://assets/char/nullscapeChar.gltf" id="1_l8plq"]
-[ext_resource type="Script" uid="uid://o0auyioakt27" path="res://scripts/playerModel.gd" id="2_tb4rt"]
+[ext_resource type="Script" uid="uid://o0auyioakt27" path="res://scripts/playerScripts/playerModel.gd" id="2_tb4rt"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8plq"]
 animation = &"fall"

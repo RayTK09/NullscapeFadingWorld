@@ -1,15 +1,19 @@
 [gd_scene format=3 uid="uid://cnkxs86u0auoj"]
 
-[ext_resource type="Script" uid="uid://b546xlingnjhv" path="res://scripts/Player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://b546xlingnjhv" path="res://scripts/playerScripts/Player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://0a8xohm43x3b" path="res://scenes/playerMesh.tscn" id="2_g2els"]
+[ext_resource type="Script" uid="uid://drck6mw4fhye4" path="res://scripts/playerScripts/playerClass.gd" id="3_qhqgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2qw5g"]
+radius = 0.46191406
 
-[node name="Player" type="CharacterBody3D" unique_id=1641364127]
+[node name="Player" type="CharacterBody3D" unique_id=1641364127 node_paths=PackedStringArray("classes")]
 collision_layer = 6
 floor_max_angle = 0.9599311
 floor_snap_length = 0.3
 script = ExtResource("1_3vyb7")
+playerClass = 2
+classes = NodePath("class")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=305454600]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -28,4 +32,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 fov = 90.0
 
 [node name="charMesh" parent="." unique_id=88840611 node_paths=PackedStringArray("player") instance=ExtResource("2_g2els")]
+player = NodePath("..")
+
+[node name="class" type="Node" parent="." unique_id=1730983669 node_paths=PackedStringArray("player")]
+script = ExtResource("3_qhqgy")
 player = NodePath("..")

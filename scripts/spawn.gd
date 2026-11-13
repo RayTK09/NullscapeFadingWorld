@@ -73,10 +73,10 @@ func placeTiles(spawner):
 				spawner.add_child(cornerTileRight.instantiate())
 			elif chooseTileType > 70 and chooseTileType <= 85 and !connectingTile.type == "slopeUp" or !connectingTile.type == "slopeDown":
 				spawner.add_child(slopeUp.instantiate())
-				print(connectingTile.type)
-			elif chooseTileType > 85 and chooseTileType <= 110 and !connectingTile.type == "slopeUp" or !connectingTile.type == "slopeDown":
+				#print(connectingTile.type)
+			elif chooseTileType > 85 and chooseTileType <= 110 and not connectingTile.type == "slopeUp" or not connectingTile.type == "slopeDown":
 				spawner.add_child(slopeDown.instantiate())
-				print(connectingTile.type)
+				#print(connectingTile.type)
 			elif chooseTileType > 110:
 				spawner.add_child(plus.instantiate())
 			
@@ -108,7 +108,7 @@ func _on_to_lobby_timeout() -> void:
 
 func _on_spawn_platforms_timeout() -> void:
 	tilesSpawned += 1
-	print(tilesSpawned)
+	#print(tilesSpawned)
 	var chooseStarting = rng.randi_range(1, 4)
 	match chooseStarting:
 		1:
