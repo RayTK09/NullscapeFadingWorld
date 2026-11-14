@@ -15,9 +15,10 @@ extends CharacterBody3D
 @export var currentAnimation : int = 1
 @export var rotationSpeed : float = 4
 @export var classes : classes
+@export var jumps : int = 1
 
 var jumpVelocity = 4.5
-var airAcceleration = 2.5
+var airAcceleration = 1.5
 var speedMultiplier : int = 1
 var maxSpeed : float = 3.0
 var acceleration : float = 8.0
@@ -28,6 +29,7 @@ var lastDir := Vector3.FORWARD
 var stop := false
 var disableMovement := false
 var accelerationMod : int = 0
+var targetAngle
 
 
 func _ready() -> void:
@@ -67,7 +69,6 @@ func _input(event: InputEvent) -> void:
 		tween.tween_property(arm, "spring_length", distanceToPlayer, 0.2)
 		if distanceToPlayer > 30:
 			distanceToPlayer = 30
-		
 
 
 func _physics_process(delta: float) -> void:
@@ -81,6 +82,9 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Jump") and is_on_floor():
 			velocity.y = jumpVelocity
 			disableMovement = false
+			if classes.isCharging and classes.abilityTimer.is_stopped():
+				classes.abilityTimer.start()
+				classes.isCharging = false
 		
 		if velocity.y <= 0:
 			currentAnimation = 4
@@ -92,51 +96,53 @@ func _physics_process(delta: float) -> void:
 		var input_dir := Input.get_vector("Left", "Right", "Forward", "Backward")
 		var direction := (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		direction.y = 0
-		if direction.length() > 0.2:
+		if direction.length() > 0.2 and !classes.isCharging:
 			lastDir = direction
-			
-		var targetAngle := Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
-		print(direction.dot(Vector3(0, 0, targetAngle)))
-		if velocity.x == 0 and velocity.z == 0 and direction:
+		
+		if !classes.isCharging:
+			targetAngle = Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
+		#print(direction.dot(Vector3(0, 0, targetAngle)))
+		if velocity.x == 0 and velocity.z == 0 and direction and !disableMovement:
 			#turn to face the direction of where local z is and save the position so it dont rotate back to default
 			mesh.global_rotation.y = targetAngle
-		if direction.x and is_on_floor() and !disableMovement:
+		if direction.x and is_on_floor() and !disableMovement and !classes.isCharging:
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, (acceleration + accelerationMod) * delta)
 			currentAnimation = 2
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 			disableMovement = false
-		elif is_on_floor():
+		elif is_on_floor() and !classes.isCharging:
 			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
 			currentAnimation = 1
 			
-		if direction.z and is_on_floor() and !disableMovement:
+		if direction.z and is_on_floor() and !disableMovement and !classes.isCharging:
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z,(acceleration + accelerationMod) * delta)
 			currentAnimation = 2
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif is_on_floor():
+		elif is_on_floor() and !classes.isCharging:
 			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
 			currentAnimation = 1
 		
-		print(direction)
-		print(velocity)
-		
+		#print(direction)
+		#print(velocity)
+		print(lastDir)
 		
 		#AIR CONTROL
 		if direction.x and !is_on_floor():
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, airAcceleration * delta)
-			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 		elif !is_on_floor():
-			velocity.x = move_toward(velocity.x , 0, acceleration * delta)
+			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
 		if direction.z and !is_on_floor():
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, airAcceleration * delta)
-			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 		elif !is_on_floor():
-			velocity.z = move_toward(velocity.z , 0, acceleration * delta)
-		
-		
-		if velocity.x <= 3 or velocity.x >= -3:
+			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
+
+		if velocity.x <= 3 and velocity.x >= -3:
 			accelerationMod = 0
-		if velocity.z <= 3 or velocity.z >= -3:
+			classes.isCharging = false
+		if velocity.z <= 3 and velocity.z >= -3:
+			classes.isCharging = false
 			accelerationMod = 0
 
 		move_and_slide()

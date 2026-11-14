@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dnq4orpp7tr4t"
-path="res://.godot/imported/slopeUp.gltf-baf909970d6eb96a49d6698fdcc83ffa.scn"
+uid="uid://p0gxfv2i60ex"
+path="res://.godot/imported/straightTile.gltf-5c8dd4c770be2d460c004201138dfc16.scn"
 
 [deps]
 
-source_file="res://assets/slopeUp.gltf"
-dest_files=["res://.godot/imported/slopeUp.gltf-baf909970d6eb96a49d6698fdcc83ffa.scn"]
+source_file="res://assets/tiles/straightTile.gltf"
+dest_files=["res://.godot/imported/straightTile.gltf-5c8dd4c770be2d460c004201138dfc16.scn"]
 
 [params]
 

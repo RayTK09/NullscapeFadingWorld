@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://vbc8ilx2wh25"
-path="res://.godot/imported/plusTile.gltf-9a0a90c232a15dafab9d8a12eac03947.scn"
+uid="uid://cbbtaxw6cvmef"
+path="res://.godot/imported/cornerTileRight.gltf-6a9fad78f0ae2e376b781707a72278c6.scn"
 
 [deps]
 
-source_file="res://assets/plusTile.gltf"
-dest_files=["res://.godot/imported/plusTile.gltf-9a0a90c232a15dafab9d8a12eac03947.scn"]
+source_file="res://assets/tiles/cornerTileRight.gltf"
+dest_files=["res://.godot/imported/cornerTileRight.gltf-6a9fad78f0ae2e376b781707a72278c6.scn"]
 
 [params]
 

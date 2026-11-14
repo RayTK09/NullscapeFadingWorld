@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://so4jofblx524"
-path="res://.godot/imported/cornerTileLeft.gltf-3467f19ef449ea25a7ef527c179269b1.scn"
+path="res://.godot/imported/cornerTileLeft.gltf-d4b281bc739d913a6d4a94eb73344049.scn"
 
 [deps]
 
-source_file="res://assets/cornerTileLeft.gltf"
-dest_files=["res://.godot/imported/cornerTileLeft.gltf-3467f19ef449ea25a7ef527c179269b1.scn"]
+source_file="res://assets/tiles/cornerTileLeft.gltf"
+dest_files=["res://.godot/imported/cornerTileLeft.gltf-d4b281bc739d913a6d4a94eb73344049.scn"]
 
 [params]
 

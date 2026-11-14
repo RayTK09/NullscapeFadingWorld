@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bdasxtfkgpbm8"]
 
 [ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_qhslw"]
-[ext_resource type="PackedScene" uid="uid://dnq4orpp7tr4t" path="res://assets/slopeUp.gltf" id="2_7851i"]
+[ext_resource type="PackedScene" uid="uid://dnq4orpp7tr4t" path="res://assets/tiles/slopeUp.gltf" id="2_7851i"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_yswwv"]
 
 [node name="slopeDown" type="Marker3D" unique_id=207635213]

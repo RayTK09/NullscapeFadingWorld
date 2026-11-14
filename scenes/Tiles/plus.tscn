@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://dp8scnhmie28v"]
 
 [ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_c3dul"]
-[ext_resource type="PackedScene" uid="uid://vbc8ilx2wh25" path="res://assets/plusTile.gltf" id="2_lrsl3"]
+[ext_resource type="PackedScene" uid="uid://vbc8ilx2wh25" path="res://assets/tiles/plusTile.gltf" id="2_lrsl3"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_lrsl3"]
+[ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="4_gshvx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
 size = Vector3(9.005154, 0.31346893, 3.001576)
 
 [node name="plus" type="Marker3D" unique_id=1899228530]
 script = ExtResource("1_c3dul")
-giftAmount = 1
+giftAmount = 12
 type = "plus"
 
 [node name="control" type="Node3D" parent="." unique_id=1574876079]
@@ -53,3 +54,45 @@ script = ExtResource("3_lrsl3")
 [node name="connectorNode3" type="Marker3D" parent="control/connectors" unique_id=2340777]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5044527, 0, -1.5)
 script = ExtResource("3_lrsl3")
+
+[node name="tileGifts" type="Node3D" parent="control" unique_id=1391147812]
+transform = Transform3D(-6, 0, 2.6226832e-07, 0, 0.3, 0, -5.2453663e-07, 0, -3, -1.75, 0, -1.5)
+
+[node name="gifts" parent="control/tileGifts" unique_id=1537245553 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.36666667, 3.3333333, 0)
+
+[node name="gifts2" parent="control/tileGifts" unique_id=988343903 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.13333333, 3.3333333, 0)
+
+[node name="gifts3" parent="control/tileGifts" unique_id=102047153 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.08333333, 3.3333333, 0)
+
+[node name="gifts4" parent="control/tileGifts" unique_id=1378050975 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999998, 3.3333333, 0)
+
+[node name="gifts5" parent="control/tileGifts" unique_id=1552820481 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.49999994, 3.3333333, 0)
+
+[node name="gifts6" parent="control/tileGifts" unique_id=149879007 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.73333323, 3.3333333, 0)
+
+[node name="gifts7" parent="control/tileGifts" unique_id=364035405 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.9333333, 3.3333333, 1.4210855e-14)
+
+[node name="gifts8" parent="control/tileGifts" unique_id=927444627 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999992, 3.3333333, 0.43333337)
+
+[node name="gifts9" parent="control/tileGifts" unique_id=1246269995 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999983, 3.3333333, 0.9333334)
+
+[node name="gifts10" parent="control/tileGifts" unique_id=1287734286 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.29999986, 3.3333333, 1.3)
+
+[node name="gifts11" parent="control/tileGifts" unique_id=976480475 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999992, 3.3333333, -1.3000001)
+
+[node name="gifts12" parent="control/tileGifts" unique_id=1915701842 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999983, 3.3333333, -0.8000001)
+
+[node name="gifts13" parent="control/tileGifts" unique_id=927048389 instance=ExtResource("4_gshvx")]
+transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.29999986, 3.3333333, -0.43333352)

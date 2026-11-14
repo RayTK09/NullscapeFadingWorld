@@ -37,3 +37,7 @@ player = NodePath("..")
 [node name="class" type="Node" parent="." unique_id=1730983669 node_paths=PackedStringArray("player")]
 script = ExtResource("3_qhqgy")
 player = NodePath("..")
+
+[node name="Ability" type="Timer" parent="." unique_id=1713719182]
+wait_time = 5.0
+one_shot = true

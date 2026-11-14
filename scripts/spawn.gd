@@ -17,7 +17,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 5
+var tileLimit : int = 30
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0
@@ -51,7 +51,9 @@ func _physics_process(delta: float) -> void:
 	#spawn tiles
 	if tilesSpawned == tileLimit:
 		spawnTiles.stop()
-		player.stop = false
+		if !latch:
+			player.stop = false
+			latch = true
 
 
 func placeTiles(spawner):
@@ -71,10 +73,10 @@ func placeTiles(spawner):
 				spawner.add_child(cornerTileLeft.instantiate())
 			elif chooseTileType > 55 and chooseTileType <= 70:
 				spawner.add_child(cornerTileRight.instantiate())
-			elif chooseTileType > 70 and chooseTileType <= 85 and !connectingTile.type == "slopeUp" or !connectingTile.type == "slopeDown":
+			elif chooseTileType > 70 and chooseTileType <= 85:
 				spawner.add_child(slopeUp.instantiate())
 				#print(connectingTile.type)
-			elif chooseTileType > 85 and chooseTileType <= 110 and not connectingTile.type == "slopeUp" or not connectingTile.type == "slopeDown":
+			elif chooseTileType > 85 and chooseTileType <= 110:
 				spawner.add_child(slopeDown.instantiate())
 				#print(connectingTile.type)
 			elif chooseTileType > 110:

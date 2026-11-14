@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://p0gxfv2i60ex"
-path="res://.godot/imported/straightTile.gltf-a4d31871d3bc2633252856b16a63dccd.scn"
+uid="uid://vbc8ilx2wh25"
+path="res://.godot/imported/plusTile.gltf-44bc2f7606ed82708771d74fdcf8b033.scn"
 
 [deps]
 
-source_file="res://assets/straightTile.gltf"
-dest_files=["res://.godot/imported/straightTile.gltf-a4d31871d3bc2633252856b16a63dccd.scn"]
+source_file="res://assets/tiles/plusTile.gltf"
+dest_files=["res://.godot/imported/plusTile.gltf-44bc2f7606ed82708771d74fdcf8b033.scn"]
 
 [params]
 
