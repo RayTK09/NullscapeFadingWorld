@@ -124,7 +124,8 @@ func _physics_process(delta: float) -> void:
 		
 		#print(direction)
 		#print(velocity)
-		print(lastDir)
+		#print(lastDir)
+		print(classes.isCharging)
 		
 		#AIR CONTROL
 		if direction.x and !is_on_floor():

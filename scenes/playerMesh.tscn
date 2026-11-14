@@ -3,9 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://bwpj3kgkup1b6" path="res://assets/char/nullscapeChar.gltf" id="1_l8plq"]
 [ext_resource type="Script" uid="uid://o0auyioakt27" path="res://scripts/playerScripts/playerModel.gd" id="2_tb4rt"]
 
+[sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_tb4rt"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c5wcc"]
 animation = &"charging"
 advance_on_start = true
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e3ypy"]
+animation = &"diving"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_l8plq"]
 animation = &"fall"
@@ -20,14 +25,12 @@ animation = &"jump"
 
 [sub_resource type="AnimationNodeBlend3" id="AnimationNodeBlend3_l8plq"]
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_tb4rt"]
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_efend"]
 animation = &"run"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_78ya6"]
-graph_offset = Vector2(-174.60535, 98.71123)
-nodes/output/position = Vector2(1160, 180)
+graph_offset = Vector2(332.91443, 250.55716)
+nodes/output/position = Vector2(1200, 120)
 nodes/idle/node = SubResource("AnimationNodeAnimation_tb4rt")
 nodes/idle/position = Vector2(40, 120)
 "nodes/idle to run/node" = SubResource("AnimationNodeBlend2_l8plq")
@@ -40,23 +43,25 @@ nodes/fall/node = SubResource("AnimationNodeAnimation_l8plq")
 nodes/fall/position = Vector2(320, 460)
 nodes/jumping/node = SubResource("AnimationNodeBlend3_l8plq")
 nodes/jumping/position = Vector2(560, 180)
-nodes/ability/node = SubResource("AnimationNodeAnimation_c5wcc")
-nodes/ability/position = Vector2(720, 320)
-nodes/playAbility/node = SubResource("AnimationNodeBlend2_tb4rt")
-nodes/playAbility/position = Vector2(920, 160)
-node_connections = [&"output", 0, &"playAbility", &"idle to run", 0, &"idle", &"idle to run", 1, &"run", &"jumping", 0, &"jump", &"jumping", 1, &"idle to run", &"jumping", 2, &"fall", &"playAbility", 0, &"jumping", &"playAbility", 1, &"ability"]
+nodes/charging/node = SubResource("AnimationNodeAnimation_c5wcc")
+nodes/charging/position = Vector2(720, 320)
+nodes/ability/node = SubResource("AnimationNodeBlend3_tb4rt")
+nodes/ability/position = Vector2(920, 120)
+nodes/diving/node = SubResource("AnimationNodeAnimation_e3ypy")
+nodes/diving/position = Vector2(720, 40)
+node_connections = [&"output", 0, &"ability", &"idle to run", 0, &"idle", &"idle to run", 1, &"run", &"jumping", 0, &"jump", &"jumping", 1, &"idle to run", &"jumping", 2, &"fall", &"ability", 0, &"diving", &"ability", 1, &"jumping", &"ability", 2, &"charging"]
 
 [node name="charMesh" unique_id=88840611 instance=ExtResource("1_l8plq")]
 script = ExtResource("2_tb4rt")
 
 [node name="Waist" parent="." index="0" unique_id=1953029427]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7557335, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7553017, 0)
 
 [node name="Right Arm2" parent="Waist" index="2" unique_id=1582849211]
-transform = Transform3D(0.99891704, -0.04652531, 0, 0.04652531, 0.998917, 0, 0, 0, 1, 0.3125, 0.625, 0)
+transform = Transform3D(0.9986488, -0.051965423, 0, 0.051965427, 0.99864876, 0, 0, 0, 1, 0.3125, 0.625, 0)
 
 [node name="Left Arm2" parent="Waist" index="3" unique_id=1186729026]
-transform = Transform3D(0.99891704, 0.04652531, 0, -0.04652531, 0.99891704, 0, 0, 0, 1, -0.3125, 0.625, 0)
+transform = Transform3D(0.9986488, 0.051965427, 0, -0.051965427, 0.9986488, 0, 0, 0, 1, -0.3125, 0.625, 0)
 
 [node name="Right Leg2" parent="Waist" index="4" unique_id=185143063]
 transform = Transform3D(0.9961947, -0.08715574, 0, 0.08715574, 0.9961947, 0, 0, 0, 1, 0.11875, 0, 0)
@@ -69,4 +74,4 @@ tree_root = SubResource("AnimationNodeBlendTree_78ya6")
 anim_player = NodePath("../AnimationPlayer")
 "parameters/idle to run/blend_amount" = 0.0
 parameters/jumping/blend_amount = 0.0
-parameters/playAbility/blend_amount = 0.0
+parameters/ability/blend_amount = 0.0

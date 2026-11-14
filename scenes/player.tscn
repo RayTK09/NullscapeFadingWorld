@@ -12,7 +12,7 @@ collision_layer = 6
 floor_max_angle = 0.9599311
 floor_snap_length = 0.3
 script = ExtResource("1_3vyb7")
-playerClass = 2
+playerClass = 1
 classes = NodePath("class")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=305454600]

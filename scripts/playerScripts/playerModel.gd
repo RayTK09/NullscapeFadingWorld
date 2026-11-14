@@ -15,20 +15,26 @@ func _process(delta: float) -> void:
 		1:
 			animationTree['parameters/jumping/blend_amount'] = 0
 			animationTree['parameters/idle to run/blend_amount'] -= delta * animationSpeed
-			animationTree['parameters/playAbility/blend_amount'] = 0
+			animationTree['parameters/ability/blend_amount'] = 0
 		2:
 			animationTree['parameters/jumping/blend_amount'] = 0
 			animationTree['parameters/idle to run/blend_amount'] += delta * animationSpeed
-			animationTree['parameters/playAbility/blend_amount'] = 0
+			animationTree['parameters/ability/blend_amount'] = 0
 		3:
 			animationTree['parameters/jumping/blend_amount'] = -1
 		4:
 			animationTree['parameters/jumping/blend_amount'] = 1
 		5:
-			animationTree['parameters/playAbility/blend_amount'] = 1
+			match player.playerClass:
+				1:
+					animationTree['parameters/ability/blend_amount'] = 1
+				2:
+					animationTree["parameters/ability/blend_amount"] = -1
+					
 	#ensure that lolbit doesnt become an eldritch horror
 	if animationTree['parameters/idle to run/blend_amount'] > 1:
 		animationTree['parameters/idle to run/blend_amount'] = 1
 	elif animationTree['parameters/idle to run/blend_amount'] < 0:
 		animationTree['parameters/idle to run/blend_amount'] = 0
+		
 	

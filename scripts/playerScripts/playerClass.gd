@@ -11,7 +11,7 @@ var isCharging := false
 func _physics_process(delta: float) -> void:
 	if player.is_on_floor():
 		hasDived = false
-	if Input.is_action_pressed("Ability") and !hasDived and !player.stop:
+	if Input.is_action_pressed("Ability") and !player.stop:
 		match player.playerClass:
 			1:
 				if abilityTimer.is_stopped():
@@ -30,12 +30,13 @@ func _physics_process(delta: float) -> void:
 						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(0.2))
 					if Input.is_action_pressed("Right"):
 						player.targetAngle -= deg_to_rad(0.2)
-						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(0.2))
+						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(-0.2))
 			2:
 				player.velocity = player.lastDir * 10
 				player.velocity.y += 2
 				hasDived = true
 				player.disableMovement = true
+				player.currentAnimation = 5
 	else:
 		match  player.playerClass:
 			1:
@@ -44,5 +45,7 @@ func _physics_process(delta: float) -> void:
 				player.maxSpeed = 3
 				if player.velocity.x > 3 or player.velocity.x < -3:
 					player.accelerationMod = 10
+					player.velocity.x = move_toward(player.velocity.x , 0, player.accelerationMod * delta)
 				if player.velocity.z > 3 or player.velocity.z < -3:
 					player.accelerationMod = 10
+					player.velocity.z = move_toward(player.velocity.z , 0, player.accelerationMod * delta)
