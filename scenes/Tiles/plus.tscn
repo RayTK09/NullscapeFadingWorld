@@ -6,7 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="4_gshvx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
-size = Vector3(9.005154, 0.31346893, 3.001576)
+size = Vector3(9.060981, 0.31346893, 3.001576)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gshvx"]
+size = Vector3(9.000054, 0.31346893, 3.001576)
 
 [node name="plus" type="Marker3D" unique_id=1899228530]
 script = ExtResource("1_c3dul")
@@ -14,7 +17,7 @@ giftAmount = 13
 type = "plus"
 
 [node name="control" type="Node3D" parent="." unique_id=1574876079]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.62, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.58, 0, 1.5)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1004241964]
 collision_layer = 9
@@ -22,12 +25,12 @@ collision_layer = 9
 [node name="blockbench_export" parent="control/StaticBody3D" unique_id=984205732 instance=ExtResource("2_lrsl3")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=824461541]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031806946, -0.00023269653, -1.4999542)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.030613422, -0.00023269653, -1.4999542)
 shape = SubResource("BoxShape3D_2qw5g")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=1475825995]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0016422272, -0.00023269653, -1.4920063)
-shape = SubResource("BoxShape3D_2qw5g")
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -0.0016422272, -0.00023269653, -1.5028572)
+shape = SubResource("BoxShape3D_gshvx")
 
 [node name="Area3D" type="Area3D" parent="control" unique_id=1354268218]
 collision_layer = 0

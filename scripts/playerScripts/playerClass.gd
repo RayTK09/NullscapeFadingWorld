@@ -54,6 +54,11 @@ func _physics_process(delta: float) -> void:
 					player.mesh.global_rotation.y = player.targetAngle
 					$"../slideCollision".disabled = false
 					$"../CollisionShape3D".disabled = true
+					
+					if player.velocity.x > 6:
+						player.velocity.x = 6
+					if player.velocity.z > 6:
+						player.velocity.z = 6
 	else:
 		match  player.playerClass:
 			classType.CHARGER:

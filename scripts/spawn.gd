@@ -17,7 +17,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 10
+var tileLimit : int = 30
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0
@@ -84,6 +84,14 @@ func placeTiles(spawner):
 			
 			tiles = spawner.get_children()
 			var newTile = tiles.get(tiles.size() - 1)
+			if newTile.type == "slopeUp" and connectingTile.type == "slopeUp" or newTile.type == "slopeUp" and connectingTile.type == "slopeDown":
+				tilesSpawned -= 1
+				newTile.queue_free()
+				return
+			elif newTile.type == "slopeDown" and connectingTile.type == "slopeUp" or newTile.type == "slopeDown" and connectingTile.type == "slopeDown":
+				tilesSpawned -= 1
+				newTile.queue_free()
+				return
 			maxGifts += newTile.giftAmount
 			newTile.global_position = connectingTile.connectors[connectorPoint].global_position
 			newTile.global_rotation = connectingTile.connectors[connectorPoint].global_rotation
@@ -110,7 +118,7 @@ func _on_to_lobby_timeout() -> void:
 
 func _on_spawn_platforms_timeout() -> void:
 	tilesSpawned += 1
-	#print(tilesSpawned)
+	print(tilesSpawned)
 	var chooseStarting = rng.randi_range(1, 4)
 	match chooseStarting:
 		1:
