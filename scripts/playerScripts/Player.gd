@@ -33,6 +33,7 @@ var accelerationMod : int = 0
 var targetAngle
 var setAnimation
 var direction
+var setVelocityLatch := false
 
 #I love enums
 enum state {
@@ -157,10 +158,13 @@ func _physics_process(delta: float) -> void:
 		#print(direction)
 		#print(velocity.rotated(Vector3.UP, targetAngle))
 		
-		if !is_on_floor():
+		if !is_on_floor() and !setVelocityLatch:
 			maxSpeed = _setVelocityLimit(velocity.x, velocity.z)
-		else:
+			airAcceleration = _setAcceleration(velocity.x, velocity.z)
+			setVelocityLatch = true
+		elif is_on_floor():
 			maxSpeed = DEFAULTSPEED
+			setVelocityLatch = false
 			
 		print(maxSpeed)
 		
@@ -193,3 +197,7 @@ func _physics_process(delta: float) -> void:
 func _setVelocityLimit(currentVelocityX, currentVelocityZ) -> float:
 	var newMaxSpeed = sqrt((currentVelocityX * currentVelocityX) + (currentVelocityZ * currentVelocityZ))
 	return newMaxSpeed
+	
+func _setAcceleration(currentVelocityX, currentVelocityZ) -> float:
+	var newAcceleration = sqrt((currentVelocityX * currentVelocityX) + (currentVelocityZ * currentVelocityZ))
+	return newAcceleration / 2
