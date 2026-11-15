@@ -10,7 +10,7 @@ size = Vector3(9.005154, 0.31346893, 3.001576)
 
 [node name="plus" type="Marker3D" unique_id=1899228530]
 script = ExtResource("1_c3dul")
-giftAmount = 12
+giftAmount = 13
 type = "plus"
 
 [node name="control" type="Node3D" parent="." unique_id=1574876079]
@@ -92,7 +92,7 @@ transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999992, 3.3333333, -1.3000001)
 
 [node name="gifts12" parent="control/tileGifts" unique_id=1915701842 instance=ExtResource("4_gshvx")]
-transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999983, 3.3333333, -0.8000001)
+transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999983, 3.3333333, -0.86666673)
 
 [node name="gifts13" parent="control/tileGifts" unique_id=927048389 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.29999986, 3.3333333, -0.43333352)

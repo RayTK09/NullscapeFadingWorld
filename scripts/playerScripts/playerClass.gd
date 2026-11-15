@@ -8,11 +8,13 @@ class_name classes
 var hasDived := false
 var isCharging := false
 var diverJumped := false
+var setDiverVelocity
 
 enum classType {
 	CHARGER,
 	DIVER
 }
+
 
 func _physics_process(delta: float) -> void:
 	if player.is_on_floor() and diverJumped:
@@ -40,11 +42,13 @@ func _physics_process(delta: float) -> void:
 						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(-0.1))
 			classType.DIVER:
 				if !hasDived and player.velocity:
-					player.velocity = player.lastDir * 5
+					player.speedMultiplier = 2.4
+					setDiverVelocity = player.maxSpeed * player.speedMultiplier
+					player.velocity = player.velocity.normalized() * Vector3(setDiverVelocity, 0, setDiverVelocity)
+					player.targetAngle = Vector3.FORWARD.signed_angle_to(player.velocity, Vector3.UP)
 					player.velocity.y += 2
-					player.accelerationMod = 10
+					player.accelerationMod = 20
 					hasDived = true
-					player.disableMovement = true
 					diverJumped = false
 					player.setAnimation = player.state.DIVE
 					player.mesh.global_rotation.y = player.targetAngle
@@ -68,4 +72,3 @@ func _physics_process(delta: float) -> void:
 					diverJumped = false
 					player.disableMovement = false
 					player.setAnimation = player.state.JUMP
-	print(player.setAnimation)

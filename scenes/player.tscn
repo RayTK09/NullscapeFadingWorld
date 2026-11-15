@@ -23,7 +23,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2qw5g")
 
 [node name="slideCollision" type="CollisionShape3D" parent="." unique_id=1623223580]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.140625, 0.23071289)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.940625, 0.23071289)
 shape = SubResource("BoxShape3D_2qw5g")
 disabled = true
 

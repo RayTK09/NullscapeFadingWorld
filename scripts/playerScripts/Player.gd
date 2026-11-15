@@ -4,6 +4,8 @@ class_name player
 extends CharacterBody3D
 
 
+const DEFAULTSPEED := 3.0
+
 @onready var globals : global = get_node("/root/Global")
 @onready var camera : Camera3D = $pivotX/pivotY/SpringArm3D/Camera3D
 @onready var arm : SpringArm3D = $pivotX/pivotY/SpringArm3D
@@ -30,6 +32,7 @@ var disableMovement := false
 var accelerationMod : int = 0
 var targetAngle
 var setAnimation
+var direction
 
 #I love enums
 enum state {
@@ -107,14 +110,19 @@ func _physics_process(delta: float) -> void:
 			$"slideCollision".disabled = true
 			$"CollisionShape3D".disabled = false
 			setAnimation = state.JUMP
+			if !direction:
+				velocity = Vector3(0, velocity.y, 0)
 		
-			
+		if setAnimation == state.DIVE:
+			floor_max_angle = deg_to_rad(40)
+		else:
+			floor_max_angle = deg_to_rad(55)
 		
 		#why does movement have to be so difficult
 		#special thanks to GDQuest for the rotation for the mesh
 		#https://youtu.be/JlgZtOFMdfc
 		var input_dir := Input.get_vector("Left", "Right", "Forward", "Backward")
-		var direction := (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+		direction = (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		direction.y = 0
 		
 		if direction.length() > 0.2 and !classes.isCharging and !classes.hasDived:
@@ -123,11 +131,11 @@ func _physics_process(delta: float) -> void:
 		if !classes.isCharging:
 			targetAngle = Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
 		#print(direction.dot(Vector3(0, 0, targetAngle)))
-		if velocity.x == 0 and velocity.z == 0 and direction and !disableMovement:
+		if velocity.x == 0 and velocity.z == 0 and direction and setAnimation != state.DIVE:
 			#turn to face the direction of where local z is and save the position so it dont rotate back to default
 			mesh.global_rotation.y = targetAngle
 		
-		if direction.x and is_on_floor() and !disableMovement and !classes.isCharging:
+		if direction.x and is_on_floor() and setAnimation != state.DIVE and !classes.isCharging:
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, (acceleration + accelerationMod) * delta)
 			setAnimation = state.RUN
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
@@ -137,7 +145,7 @@ func _physics_process(delta: float) -> void:
 			if !classes.hasDived:
 				setAnimation = state.IDLE
 			
-		if direction.z and is_on_floor() and !disableMovement and !classes.isCharging:
+		if direction.z and is_on_floor() and setAnimation != state.DIVE and !classes.isCharging:
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z,(acceleration + accelerationMod) * delta)
 			setAnimation = state.RUN
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
@@ -147,20 +155,28 @@ func _physics_process(delta: float) -> void:
 				setAnimation = state.IDLE
 		
 		#print(direction)
-		#print(velocity)
+		#print(velocity.rotated(Vector3.UP, targetAngle))
+		
+		if !is_on_floor():
+			maxSpeed = _setVelocityLimit(velocity.x, velocity.z)
+		else:
+			maxSpeed = DEFAULTSPEED
+			
+		print(maxSpeed)
 		
 		
 		#AIR CONTROL
 		#disable air control during dive
-		if direction.x and !is_on_floor() and !classes.hasDived:
+		if direction.x and !is_on_floor() and setAnimation != state.DIVE:
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, airAcceleration * delta)
 			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif !is_on_floor() and !classes.hasDived:
+		elif !is_on_floor() and setAnimation != state.DIVE:
 			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
-		if direction.z and !is_on_floor() and !classes.hasDived:
+		
+		if direction.z and !is_on_floor() and setAnimation != state.DIVE:
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, airAcceleration * delta)
 			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif !is_on_floor() and !classes.hasDived:
+		elif !is_on_floor() and setAnimation != state.DIVE:
 			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
 
 		if velocity.x <= 3 and velocity.x >= -3:
@@ -171,3 +187,9 @@ func _physics_process(delta: float) -> void:
 			accelerationMod = 0
 
 		move_and_slide()
+
+
+#set our last velocity is to the max velocity while in air
+func _setVelocityLimit(currentVelocityX, currentVelocityZ) -> float:
+	var newMaxSpeed = sqrt((currentVelocityX * currentVelocityX) + (currentVelocityZ * currentVelocityZ))
+	return newMaxSpeed
