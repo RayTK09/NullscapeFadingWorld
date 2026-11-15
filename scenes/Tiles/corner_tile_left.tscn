@@ -2,13 +2,11 @@
 
 [ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_kwor3"]
 [ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="2_k37gc"]
+[ext_resource type="PackedScene" uid="uid://so4jofblx524" path="res://assets/tiles/cornerTileLeft.gltf" id="2_l2mqe"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_clc6f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k37gc"]
-size = Vector3(2, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_clc6f"]
-size = Vector3(2, 1, 1)
+size = Vector3(6, 0.3063202, 2.9797363)
 
 [node name="cornerTileLeft" type="Marker3D" unique_id=415194363]
 script = ExtResource("1_kwor3")
@@ -19,37 +17,23 @@ type = "cornerLeft"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.52, 0, 0)
 
 [node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1230156027]
-transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 collision_layer = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=297044683]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50000006, 0, 0)
 shape = SubResource("BoxShape3D_k37gc")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=338671321]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -0.5)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1.5, 0.003211975, -1.5)
 shape = SubResource("BoxShape3D_k37gc")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=1186057707]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-mesh = SubResource("BoxMesh_clc6f")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="control/StaticBody3D" unique_id=1858759727]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1, 0, -0.5)
-mesh = SubResource("BoxMesh_clc6f")
+[node name="blockbench_export" parent="control/StaticBody3D" unique_id=1253366955 instance=ExtResource("2_l2mqe")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="control" unique_id=923812413]
 transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)
 collision_layer = 8
 collision_mask = 8
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=257359894]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
-shape = SubResource("BoxShape3D_k37gc")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="control/Area3D" unique_id=1977594899]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 1, 0, -0.5)
-shape = SubResource("BoxShape3D_k37gc")
 
 [node name="tileGifts" type="Node3D" parent="control" unique_id=1151751035]
 transform = Transform3D(3, 0, 0, 0, 0.3, 0, 0, 0, 3, 0, 0, 0)

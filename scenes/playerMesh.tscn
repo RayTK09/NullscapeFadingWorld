@@ -29,7 +29,7 @@ animation = &"jump"
 animation = &"run"
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_78ya6"]
-graph_offset = Vector2(332.91443, 250.55716)
+graph_offset = Vector2(-217.66522, 7.644394)
 nodes/output/position = Vector2(1200, 120)
 nodes/idle/node = SubResource("AnimationNodeAnimation_tb4rt")
 nodes/idle/position = Vector2(40, 120)
@@ -55,13 +55,13 @@ node_connections = [&"output", 0, &"ability", &"idle to run", 0, &"idle", &"idle
 script = ExtResource("2_tb4rt")
 
 [node name="Waist" parent="." index="0" unique_id=1953029427]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7553017, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7503184, 0)
 
 [node name="Right Arm2" parent="Waist" index="2" unique_id=1582849211]
-transform = Transform3D(0.9986488, -0.051965423, 0, 0.051965427, 0.99864876, 0, 0, 0, 1, 0.3125, 0.625, 0)
+transform = Transform3D(0.9964852, -0.0837684, 0, 0.0837684, 0.9964851, 0, 0, 0, 1, 0.3125, 0.625, 0)
 
 [node name="Left Arm2" parent="Waist" index="3" unique_id=1186729026]
-transform = Transform3D(0.9986488, 0.051965427, 0, -0.051965427, 0.9986488, 0, 0, 0, 1, -0.3125, 0.625, 0)
+transform = Transform3D(0.9964852, 0.0837684, 0, -0.0837684, 0.9964852, 0, 0, 0, 1, -0.3125, 0.625, 0)
 
 [node name="Right Leg2" parent="Waist" index="4" unique_id=185143063]
 transform = Transform3D(0.9961947, -0.08715574, 0, 0.08715574, 0.9961947, 0, 0, 0, 1, 0.11875, 0, 0)

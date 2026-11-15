@@ -17,7 +17,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 30
+var tileLimit : int = 10
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0

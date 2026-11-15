@@ -7,17 +7,24 @@ class_name classes
 
 var hasDived := false
 var isCharging := false
+var diverJumped := false
+
+enum classType {
+	CHARGER,
+	DIVER
+}
 
 func _physics_process(delta: float) -> void:
-	if player.is_on_floor():
+	if player.is_on_floor() and diverJumped:
 		hasDived = false
+		diverJumped = false
 	if Input.is_action_pressed("Ability") and !player.stop:
 		match player.playerClass:
-			1:
+			classType.CHARGER:
 				if abilityTimer.is_stopped():
 					player.maxSpeed = 15
 					player.accelerationMod = 30
-					player.currentAnimation = 5
+					player.setAnimation = player.state.CHARGE
 					isCharging = true
 					player.velocity.x = move_toward(player.velocity.x, player.maxSpeed * player.lastDir.x, delta * player.accelerationMod)
 					player.velocity.z = move_toward(player.velocity.z, player.maxSpeed * player.lastDir.z, delta * player.accelerationMod)
@@ -27,19 +34,25 @@ func _physics_process(delta: float) -> void:
 					#switch to tank controls when we activate the charging ability
 					if Input.is_action_pressed("Left"):
 						player.targetAngle += deg_to_rad(0.2)
-						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(0.2))
+						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(0.1))
 					if Input.is_action_pressed("Right"):
 						player.targetAngle -= deg_to_rad(0.2)
-						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(-0.2))
-			2:
-				player.velocity = player.lastDir * 10
-				player.velocity.y += 2
-				hasDived = true
-				player.disableMovement = true
-				player.currentAnimation = 5
+						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(-0.1))
+			classType.DIVER:
+				if !hasDived and player.velocity:
+					player.velocity = player.lastDir * 5
+					player.velocity.y += 2
+					player.accelerationMod = 10
+					hasDived = true
+					player.disableMovement = true
+					diverJumped = false
+					player.setAnimation = player.state.DIVE
+					player.mesh.global_rotation.y = player.targetAngle
+					$"../slideCollision".disabled = false
+					$"../CollisionShape3D".disabled = true
 	else:
 		match  player.playerClass:
-			1:
+			classType.CHARGER:
 				if Input.is_action_just_released("Ability") and isCharging:
 					abilityTimer.start()
 				player.maxSpeed = 3
@@ -49,3 +62,10 @@ func _physics_process(delta: float) -> void:
 				if player.velocity.z > 3 or player.velocity.z < -3:
 					player.accelerationMod = 10
 					player.velocity.z = move_toward(player.velocity.z , 0, player.accelerationMod * delta)
+			classType.DIVER:
+				if diverJumped and player.is_on_floor():
+					hasDived = false
+					diverJumped = false
+					player.disableMovement = false
+					player.setAnimation = player.state.JUMP
+	print(player.setAnimation)

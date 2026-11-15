@@ -11,25 +11,25 @@ extends Node3D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	match player.currentAnimation:
-		1:
-			animationTree['parameters/jumping/blend_amount'] = 0
+	match player.setAnimation:
+		player.state.IDLE:
 			animationTree['parameters/idle to run/blend_amount'] -= delta * animationSpeed
-			animationTree['parameters/ability/blend_amount'] = 0
-		2:
 			animationTree['parameters/jumping/blend_amount'] = 0
-			animationTree['parameters/idle to run/blend_amount'] += delta * animationSpeed
 			animationTree['parameters/ability/blend_amount'] = 0
-		3:
+		player.state.RUN:
+			animationTree['parameters/idle to run/blend_amount'] += delta * animationSpeed
+			animationTree['parameters/jumping/blend_amount'] = 0
+			animationTree['parameters/ability/blend_amount'] = 0
+		player.state.JUMP:
 			animationTree['parameters/jumping/blend_amount'] = -1
-		4:
+			animationTree['parameters/ability/blend_amount'] = 0
+		player.state.FALL:
 			animationTree['parameters/jumping/blend_amount'] = 1
-		5:
-			match player.playerClass:
-				1:
-					animationTree['parameters/ability/blend_amount'] = 1
-				2:
-					animationTree["parameters/ability/blend_amount"] = -1
+			animationTree['parameters/ability/blend_amount'] = 0
+		player.state.CHARGE:
+			animationTree['parameters/ability/blend_amount'] = 1
+		player.state.DIVE:
+			animationTree["parameters/ability/blend_amount"] = -1
 					
 	#ensure that lolbit doesnt become an eldritch horror
 	if animationTree['parameters/idle to run/blend_amount'] > 1:

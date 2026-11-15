@@ -11,11 +11,10 @@ extends CharacterBody3D
 @onready var camPivotY : Node3D = $pivotX/pivotY
 @onready var mesh := $charMesh
 
-@export var playerClass : int
-@export var currentAnimation : int = 1
 @export var rotationSpeed : float = 4
-@export var classes : classes
 @export var jumps : int = 1
+@export var classes : classes
+@export var playerClass : classes.classType = classes.classType.CHARGER
 
 var jumpVelocity = 4.5
 var airAcceleration = 1.5
@@ -30,6 +29,17 @@ var stop := false
 var disableMovement := false
 var accelerationMod : int = 0
 var targetAngle
+var setAnimation
+
+#I love enums
+enum state {
+	IDLE,
+	RUN,
+	JUMP,
+	FALL,
+	CHARGE,
+	DIVE
+}
 
 
 func _ready() -> void:
@@ -76,8 +86,11 @@ func _physics_process(delta: float) -> void:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
 		
-		if velocity.y > 0:
-			currentAnimation = 3
+		if velocity.y > 0 and setAnimation != state.DIVE:
+			setAnimation = state.JUMP
+
+		if velocity.y <= 0 and setAnimation != state.DIVE:
+			setAnimation = state.FALL
 
 		if Input.is_action_just_pressed("Jump") and is_on_floor():
 			velocity.y = jumpVelocity
@@ -86,8 +99,15 @@ func _physics_process(delta: float) -> void:
 				classes.abilityTimer.start()
 				classes.isCharging = false
 		
-		if velocity.y <= 0:
-			currentAnimation = 4
+		#diver jump
+		if classes.hasDived and !classes.diverJumped and Input.is_action_just_pressed("Jump"):
+			velocity.y = jumpVelocity
+			disableMovement = false
+			classes.diverJumped = true
+			$"slideCollision".disabled = true
+			$"CollisionShape3D".disabled = false
+			setAnimation = state.JUMP
+		
 			
 		
 		#why does movement have to be so difficult
@@ -96,7 +116,8 @@ func _physics_process(delta: float) -> void:
 		var input_dir := Input.get_vector("Left", "Right", "Forward", "Backward")
 		var direction := (camPivotX.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		direction.y = 0
-		if direction.length() > 0.2 and !classes.isCharging:
+		
+		if direction.length() > 0.2 and !classes.isCharging and !classes.hasDived:
 			lastDir = direction
 		
 		if !classes.isCharging:
@@ -105,38 +126,41 @@ func _physics_process(delta: float) -> void:
 		if velocity.x == 0 and velocity.z == 0 and direction and !disableMovement:
 			#turn to face the direction of where local z is and save the position so it dont rotate back to default
 			mesh.global_rotation.y = targetAngle
+		
 		if direction.x and is_on_floor() and !disableMovement and !classes.isCharging:
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, (acceleration + accelerationMod) * delta)
-			currentAnimation = 2
+			setAnimation = state.RUN
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 			disableMovement = false
 		elif is_on_floor() and !classes.isCharging:
 			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
-			currentAnimation = 1
+			if !classes.hasDived:
+				setAnimation = state.IDLE
 			
 		if direction.z and is_on_floor() and !disableMovement and !classes.isCharging:
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z,(acceleration + accelerationMod) * delta)
-			currentAnimation = 2
+			setAnimation = state.RUN
 			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
 		elif is_on_floor() and !classes.isCharging:
 			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
-			currentAnimation = 1
+			if !classes.hasDived:
+				setAnimation = state.IDLE
 		
 		#print(direction)
 		#print(velocity)
-		#print(lastDir)
-		print(classes.isCharging)
+		
 		
 		#AIR CONTROL
-		if direction.x and !is_on_floor():
+		#disable air control during dive
+		if direction.x and !is_on_floor() and !classes.hasDived:
 			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, airAcceleration * delta)
 			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif !is_on_floor():
+		elif !is_on_floor() and !classes.hasDived:
 			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
-		if direction.z and !is_on_floor():
+		if direction.z and !is_on_floor() and !classes.hasDived:
 			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, airAcceleration * delta)
 			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif !is_on_floor():
+		elif !is_on_floor() and !classes.hasDived:
 			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
 
 		if velocity.x <= 3 and velocity.x >= -3:
