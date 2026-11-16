@@ -6,3 +6,4 @@ extends Node
 @export var playerClass : int = 1
 @export var currentLevel : int = 1
 @export var collectedGifts : int = 0
+@export var chooseClass : int = 0

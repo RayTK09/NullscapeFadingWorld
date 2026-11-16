@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c7r2r2h3xk02h" path="res://scripts/menu.gd" id="1_yqeox"]
 
+[sub_resource type="LabelSettings" id="LabelSettings_2qw5g"]
+font_size = 44
+
 [node name="Menu" type="Node3D" unique_id=243868783]
 script = ExtResource("1_yqeox")
 
@@ -15,9 +18,31 @@ offset_bottom = 40.0
 layout_mode = 0
 offset_left = 204.0
 offset_top = 229.0
-offset_right = 251.0
-offset_bottom = 260.0
+offset_right = 771.93506
+offset_bottom = 568.0
 theme_override_font_sizes/font_size = 50
 text = "PLAY"
+
+[node name="OptionButton" type="OptionButton" parent="Control" unique_id=2012207828]
+layout_mode = 0
+offset_left = 204.0
+offset_top = 704.0
+offset_right = 474.0
+offset_bottom = 839.0
+theme_override_font_sizes/font_size = 44
+selected = 0
+item_count = 2
+popup/item_0/text = "Charger"
+popup/item_0/id = 0
+popup/item_1/text = "Diver"
+popup/item_1/id = 1
+
+[node name="Label" type="Label" parent="." unique_id=1238568777]
+offset_left = 204.0
+offset_top = 611.0
+offset_right = 480.0
+offset_bottom = 672.0
+text = "Choose Class"
+label_settings = SubResource("LabelSettings_2qw5g")
 
 [connection signal="pressed" from="Control/Button" to="." method="_on_button_pressed"]

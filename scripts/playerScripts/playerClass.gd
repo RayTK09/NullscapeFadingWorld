@@ -17,13 +17,15 @@ enum classType {
 
 
 func _physics_process(delta: float) -> void:
+	#print(abilityTimer.time_left)
+	
 	if player.is_on_floor() and diverJumped:
 		hasDived = false
 		diverJumped = false
 	if Input.is_action_pressed("Ability") and !player.stop:
 		match player.playerClass:
 			classType.CHARGER:
-				if abilityTimer.is_stopped():
+				if abilityTimer.is_stopped() and player.is_on_floor():
 					player.maxSpeed = 15
 					player.accelerationMod = 30
 					player.setAnimation = player.state.CHARGE
@@ -40,6 +42,7 @@ func _physics_process(delta: float) -> void:
 					if Input.is_action_pressed("Right"):
 						player.targetAngle -= deg_to_rad(0.2)
 						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(-0.1))
+			
 			classType.DIVER:
 				if !hasDived and player.velocity:
 					player.speedMultiplier = 2.4
@@ -62,8 +65,6 @@ func _physics_process(delta: float) -> void:
 	else:
 		match  player.playerClass:
 			classType.CHARGER:
-				if Input.is_action_just_released("Ability") and isCharging:
-					abilityTimer.start()
 				player.maxSpeed = 3
 				if player.velocity.x > 3 or player.velocity.x < -3:
 					player.accelerationMod = 10
@@ -71,6 +72,10 @@ func _physics_process(delta: float) -> void:
 				if player.velocity.z > 3 or player.velocity.z < -3:
 					player.accelerationMod = 10
 					player.velocity.z = move_toward(player.velocity.z , 0, player.accelerationMod * delta)
+				if (player.velocity.x < 3 or player.velocity.x > -3) and (player.velocity.z < 3 or player.velocity.z > -3) and isCharging:
+					isCharging = false
+					abilityTimer.start()
+			
 			classType.DIVER:
 				if diverJumped and player.is_on_floor():
 					hasDived = false

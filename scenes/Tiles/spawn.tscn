@@ -78,6 +78,7 @@ mesh = SubResource("BoxMesh_78ya6")
 
 [node name="Player" parent="." unique_id=1641364127 instance=ExtResource("1_nshhi")]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0.33, 0)
+playerClass = 0
 
 [node name="activeTiles" type="Node3D" parent="." unique_id=305303666]
 

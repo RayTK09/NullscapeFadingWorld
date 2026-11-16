@@ -48,6 +48,7 @@ enum state {
 
 func _ready() -> void:
 	camera.fov = globals.playerFov
+	playerClass = globals.chooseClass
 
 
 func _input(event: InputEvent) -> void:
@@ -102,6 +103,7 @@ func _physics_process(delta: float) -> void:
 			if classes.isCharging and classes.abilityTimer.is_stopped():
 				classes.abilityTimer.start()
 				classes.isCharging = false
+				maxSpeed = 3.0
 		
 		#diver jump
 		if classes.hasDived and !classes.diverJumped and Input.is_action_just_pressed("Jump"):
@@ -166,7 +168,8 @@ func _physics_process(delta: float) -> void:
 			maxSpeed = DEFAULTSPEED
 			setVelocityLatch = false
 			
-		print(maxSpeed)
+		#print(maxSpeed)
+		#print(airAcceleration)
 		
 		
 		#AIR CONTROL
@@ -185,9 +188,7 @@ func _physics_process(delta: float) -> void:
 
 		if velocity.x <= 3 and velocity.x >= -3:
 			accelerationMod = 0
-			classes.isCharging = false
 		if velocity.z <= 3 and velocity.z >= -3:
-			classes.isCharging = false
 			accelerationMod = 0
 
 		move_and_slide()
