@@ -17,7 +17,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 3
+var tileLimit : int = 5
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0
@@ -57,9 +57,21 @@ func _physics_process(delta: float) -> void:
 
 
 func placeTiles(spawner):
-	var tiles = spawner.get_children()
-	var chooseTile = rng.randi_range(0, tiles.size() - 1)
-	var connectingTile = tiles[chooseTile]
+	var tiles : Array = spawner.get_children()
+	var validTiles : Array
+	for x in tiles.size():
+		var checkTile = tiles[x]
+		for y in checkTile.connectors.size():
+			if !checkTile.connectors[y].isConnected:
+				validTiles.append(tiles[x])
+				break
+	var chooseTile = rng.randi_range(0, validTiles.size() - 1)
+	
+	#workaround to valid tiles returning nothing
+	if validTiles == []:
+		tilesSpawned -= 1
+		return
+	var connectingTile = validTiles[chooseTile]
 	var connectorPoint : int
 	for i in connectingTile.connectors.size():
 		if !connectingTile.connectors[i].isConnected:
