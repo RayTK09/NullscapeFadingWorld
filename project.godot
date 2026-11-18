@@ -13,7 +13,6 @@ config_version=5
 config/name="NullscapeFadingWorld"
 run/main_scene="uid://dny40e0dhlcy"
 config/features=PackedStringArray("4.7", "Mobile")
-config/icon="res://icon.svg"
 
 [autoload]
 
@@ -29,6 +28,10 @@ window/stretch/aspect="expand"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[global_group]
+
+tile="this is to get the tiles and check if they are touching the death box"
 
 [input]
 
@@ -94,11 +97,11 @@ zoomOut={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="giftCollection"
 3d_physics/layer_4="levelGenCollisionCheck"
+3d_physics/layer_5="deathBoxInteractCheck"
 
 [physics]
 
 3d/physics_engine="Jolt Physics"
-3d/default_gravity=9.799999999999995
 
 [rendering]
 

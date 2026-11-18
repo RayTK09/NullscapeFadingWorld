@@ -35,6 +35,9 @@ emission_energy_multiplier = 8.56
 
 [sub_resource type="BoxMesh" id="BoxMesh_78ya6"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_78ya6"]
+size = Vector3(6560.5176, 1, 7869.875)
+
 [node name="Spawn" type="Node3D" unique_id=711119345 node_paths=PackedStringArray("player")]
 script = ExtResource("1_cbyj8")
 player = NodePath("Player")
@@ -107,7 +110,16 @@ offset_right = 8.0
 offset_bottom = 8.0
 text = "Regenerate Map"
 
+[node name="DEATHBOX" type="Area3D" parent="." unique_id=9597228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -60.693825, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DEATHBOX" unique_id=1037417336]
+shape = SubResource("BoxShape3D_78ya6")
+
 [connection signal="body_entered" from="spawnTile/beacon" to="." method="_on_beacon_body_entered"]
 [connection signal="timeout" from="toLobby" to="." method="_on_to_lobby_timeout"]
 [connection signal="timeout" from="spawnTiles" to="." method="_on_spawn_platforms_timeout"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="body_entered" from="DEATHBOX" to="." method="_on_deathbox_body_entered"]

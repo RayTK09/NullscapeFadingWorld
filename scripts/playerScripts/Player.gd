@@ -134,7 +134,7 @@ func _physics_process(delta: float) -> void:
 		if !classes.isCharging:
 			targetAngle = Vector3.FORWARD.signed_angle_to(lastDir, Vector3.UP)
 		#print(direction.dot(Vector3(0, 0, targetAngle)))
-		if velocity.x == 0 and velocity.z == 0 and direction and setAnimation != state.DIVE:
+		if velocity.x == 0 and velocity.z == 0 and direction and setAnimation != state.DIVE and !velocity:
 			#turn to face the direction of where local z is and save the position so it dont rotate back to default
 			mesh.global_rotation.y = targetAngle
 		
@@ -157,20 +157,19 @@ func _physics_process(delta: float) -> void:
 			if !classes.hasDived:
 				setAnimation = state.IDLE
 		
-		#print(direction)
+		#print(velocity)
 		#print(velocity.rotated(Vector3.UP, targetAngle))
 		
-		if !is_on_floor() and !setVelocityLatch:
+		if !is_on_floor() and !setVelocityLatch and !classes.isCharging:
 			maxSpeed = _setVelocityLimit(velocity.x, velocity.z)
 			airAcceleration = _setAcceleration(velocity.x, velocity.z)
 			setVelocityLatch = true
 		elif is_on_floor():
 			maxSpeed = DEFAULTSPEED
 			setVelocityLatch = false
-			
+		
 		#print(maxSpeed)
 		#print(airAcceleration)
-		
 		
 		#AIR CONTROL
 		#disable air control during dive

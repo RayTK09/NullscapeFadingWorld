@@ -16,20 +16,6 @@ type = "cornerRight"
 [node name="control" type="Node3D" parent="." unique_id=1113723773]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.505, 0, 0)
 
-[node name="StaticBody3D" type="StaticBody3D" parent="control" unique_id=1218709798]
-collision_layer = 9
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=653663926]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5020447, -0.0008880496, 0)
-shape = SubResource("BoxShape3D_v8bcu")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="control/StaticBody3D" unique_id=1313363239]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 2.9975586, 0, 1.4999999)
-shape = SubResource("BoxShape3D_v8bcu")
-
-[node name="blockbench_export" parent="control/StaticBody3D" unique_id=14307225 instance=ExtResource("2_25fy5")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5, 0, 6.5567086e-08)
-
 [node name="Area3D" type="Area3D" parent="control" unique_id=1538503832]
 collision_layer = 0
 collision_mask = 8
@@ -71,3 +57,6 @@ transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 
 [node name="connectorNodeEnd" type="Marker3D" parent="control/connectors" unique_id=1415715723]
 transform = Transform3D(-1.3113416e-07, 0, -1, 0, 1, 0, 3, 0, -4.371139e-08, 2.9999995, 0, 4.5)
 script = ExtResource("3_6eaxh")
+
+[node name="blockbench_export" parent="control" unique_id=14307225 instance=ExtResource("2_25fy5")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5000001, 0, 6.5567086e-08)

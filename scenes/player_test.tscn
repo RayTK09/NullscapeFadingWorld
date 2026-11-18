@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bt1wlqirgu33j"]
 
 [ext_resource type="PackedScene" uid="uid://cnkxs86u0auoj" path="res://scenes/player.tscn" id="1_a8v3n"]
+[ext_resource type="PackedScene" uid="uid://dhoqemgovn1wq" path="res://scenes/spawnables/jumppad.tscn" id="2_fdpfy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_a8v3n"]
 sky_top_color = Color(0.42352942, 0.42352942, 0.42352942, 1)
@@ -41,3 +42,6 @@ shape = SubResource("BoxShape3D_78ya6")
 mesh = SubResource("BoxMesh_2qw5g")
 
 [node name="Player" parent="." unique_id=1641364127 instance=ExtResource("1_a8v3n")]
+
+[node name="jumppad" parent="." unique_id=1469661367 instance=ExtResource("2_fdpfy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6396675, 8.17172)

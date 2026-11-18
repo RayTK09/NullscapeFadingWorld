@@ -14,6 +14,7 @@ extends Node3D
 @onready var globals : global = get_node("/root/Global")
 @onready var beacon := $spawnTile/beacon
 @onready var spawnTiles := $spawnTiles
+@onready var deathBox := $DEATHBOX
 
 @export var player : player
 
@@ -75,7 +76,6 @@ func placeTiles(spawner):
 	var connectorPoint : int
 	for i in connectingTile.connectors.size():
 		if !connectingTile.connectors[i].isConnected:
-			connectingTile.connectors[i].isConnected = true
 			connectorPoint = i
 			#choose a tile type to use
 			var chooseTileType = rng.randi_range(0, 120)
@@ -104,6 +104,7 @@ func placeTiles(spawner):
 				tilesSpawned -= 1
 				newTile.queue_free()
 				return
+			connectingTile.connectors[i].isConnected = true
 			maxGifts += newTile.giftAmount
 			newTile.global_position = connectingTile.connectors[connectorPoint].global_position
 			newTile.global_rotation = connectingTile.connectors[connectorPoint].global_rotation
@@ -111,9 +112,6 @@ func placeTiles(spawner):
 		
 	if connectingTile.connectors[connectorPoint].isConnected:
 		tilesSpawned -= 1
-	
-	
-
 
 
 func _on_beacon_body_entered(body: Node3D) -> void:
@@ -145,3 +143,11 @@ func _on_spawn_platforms_timeout() -> void:
 
 func _on_button_pressed() -> void:
 	get_tree().reload_current_scene()
+
+
+func _on_deathbox_body_entered(body: Node3D) -> void:
+	if body.is_in_group("tile"):
+		deathBox.position -= 100
+	if body.get("name") == "Player":
+		player.mesh.ragdoll = true
+		player.mesh.skeleton.active = true

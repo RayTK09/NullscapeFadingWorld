@@ -2,6 +2,7 @@ extends Node
 class_name classes
 
 @onready var abilityTimer := $"../Ability"
+@onready var abilityBar := $"../Control/AspectRatioContainer/ProgressBar"
 
 @export var player : player 
 
@@ -17,15 +18,22 @@ enum classType {
 
 
 func _physics_process(delta: float) -> void:
-	#print(abilityTimer.time_left)
+	abilityBar.value = (abilityTimer.time_left / abilityTimer.wait_time) * 100
 	
+	if abilityBar.value == 0:
+		abilityBar.visible = false
+	else:
+		abilityBar.visible = true
+
 	if player.is_on_floor() and diverJumped:
 		hasDived = false
 		diverJumped = false
-	if Input.is_action_pressed("Ability") and !player.stop:
+
+	#holy this is hard to work with
+	if Input.is_action_pressed("Ability") and !player.stop and abilityTimer.is_stopped():
 		match player.playerClass:
 			classType.CHARGER:
-				if abilityTimer.is_stopped() and player.is_on_floor():
+				if player.is_on_floor():
 					player.maxSpeed = 15
 					player.accelerationMod = 30
 					player.setAnimation = player.state.CHARGE
@@ -42,6 +50,9 @@ func _physics_process(delta: float) -> void:
 					if Input.is_action_pressed("Right"):
 						player.targetAngle -= deg_to_rad(0.2)
 						player.lastDir = player.lastDir.rotated(Vector3(0, 1, 0), deg_to_rad(-0.1))
+					
+					if Input.is_action_just_pressed("Jump"):
+						abilityTimer.start()
 			
 			classType.DIVER:
 				if !hasDived and player.velocity:

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dhoqemgovn1wq"]
+
+[ext_resource type="Script" uid="uid://cx4w342ghqen2" path="res://scripts/tileScripts/jumppad.gd" id="1_8iihu"]
+[ext_resource type="PackedScene" uid="uid://ovy6fwd0x8yv" path="res://assets/other/jumppad.gltf" id="2_tmrng"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
+size = Vector3(1.3761902, 0.19134521, 1.3721313)
+
+[node name="jumppad" type="Node3D" unique_id=1469661367]
+script = ExtResource("1_8iihu")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=255034379]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=946201887]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0008087158, 0.00015258789, 0.0015563965)
+shape = SubResource("BoxShape3D_2qw5g")
+
+[node name="blockbench_export" parent="Area3D" unique_id=405184557 instance=ExtResource("2_tmrng")]
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
