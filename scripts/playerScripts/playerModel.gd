@@ -15,6 +15,7 @@ extends Node3D
 func _process(delta: float) -> void:
 	if ragdoll:
 		skeleton.physical_bones_start_simulation()
+		player.camPivotX.global_position = $"Skeleton3D/PhysicalBoneSimulator3D/Physical Bone Body".global_position
 	else:
 		match player.setAnimation:
 			player.state.IDLE:

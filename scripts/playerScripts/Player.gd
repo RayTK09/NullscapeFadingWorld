@@ -12,6 +12,10 @@ const DEFAULTSPEED := 3.0
 @onready var camPivotX : Node3D = $pivotX
 @onready var camPivotY : Node3D = $pivotX/pivotY
 @onready var mesh := $charMesh
+@onready var defaultCollision := $CollisionShape3D
+@onready var slideCollision := $slideCollision
+@onready var control := $deathControl
+@onready var deathTimer := $deathTimer
 
 @export var rotationSpeed : float = 4
 @export var jumps : int = 1
@@ -28,12 +32,14 @@ var rotY : float
 var distanceToPlayer : int = 4
 var lastDir := Vector3.FORWARD
 var stop := false
-var disableMovement := false
+var isDead := false
 var accelerationMod : int = 0
 var targetAngle
 var setAnimation
 var direction
 var setVelocityLatch := false
+var lastMousePos : Vector2
+var latch := false
 
 #I love enums
 enum state {
@@ -61,6 +67,12 @@ func _input(event: InputEvent) -> void:
 		camPivotY.transform.basis = Basis()
 		camPivotY.rotate_x(rotY)
 		camPivotX.rotate_y(rotX)
+		if !latch and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			lastMousePos = get_viewport().get_mouse_position()
+			Input.warp_mouse(lastMousePos)
+			latch = true
+		elif !Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			latch = false
 		
 		camPivotY.rotation.x = clampf(camPivotY.rotation.x, -(PI / 2), PI / 2)
 		rotY = clampf(rotY, -(PI / 2), PI / 2)
@@ -87,6 +99,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	print(lastMousePos)
 	if !stop:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -99,7 +112,6 @@ func _physics_process(delta: float) -> void:
 
 		if Input.is_action_just_pressed("Jump") and is_on_floor():
 			velocity.y = jumpVelocity
-			disableMovement = false
 			if classes.isCharging and classes.abilityTimer.is_stopped():
 				classes.abilityTimer.start()
 				classes.isCharging = false
@@ -108,10 +120,9 @@ func _physics_process(delta: float) -> void:
 		#diver jump
 		if classes.hasDived and !classes.diverJumped and Input.is_action_just_pressed("Jump"):
 			velocity.y = jumpVelocity
-			disableMovement = false
 			classes.diverJumped = true
-			$"slideCollision".disabled = true
-			$"CollisionShape3D".disabled = false
+			defaultCollision.disabled = false
+			slideCollision.disabled = true
 			setAnimation = state.JUMP
 			if !direction:
 				velocity = Vector3(0, velocity.y, 0)
@@ -137,58 +148,57 @@ func _physics_process(delta: float) -> void:
 		if velocity.x == 0 and velocity.z == 0 and direction and setAnimation != state.DIVE and !velocity:
 			#turn to face the direction of where local z is and save the position so it dont rotate back to default
 			mesh.global_rotation.y = targetAngle
-		
-		if direction.x and is_on_floor() and setAnimation != state.DIVE and !classes.isCharging:
-			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, (acceleration + accelerationMod) * delta)
-			setAnimation = state.RUN
-			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-			disableMovement = false
-		elif is_on_floor() and !classes.isCharging:
-			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
-			if !classes.hasDived:
-				setAnimation = state.IDLE
+		if !isDead:
+			if direction.x and is_on_floor() and setAnimation != state.DIVE and !classes.isCharging:
+				velocity.x = move_toward(velocity.x , maxSpeed * direction.x, (acceleration + accelerationMod) * delta)
+				setAnimation = state.RUN
+				mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			elif is_on_floor() and !classes.isCharging:
+				velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
+				if !classes.hasDived:
+					setAnimation = state.IDLE
+				
+			if direction.z and is_on_floor() and setAnimation != state.DIVE and !classes.isCharging:
+				velocity.z = move_toward(velocity.z , maxSpeed * direction.z,(acceleration + accelerationMod) * delta)
+				setAnimation = state.RUN
+				mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			elif is_on_floor() and !classes.isCharging:
+				velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
+				if !classes.hasDived:
+					setAnimation = state.IDLE
 			
-		if direction.z and is_on_floor() and setAnimation != state.DIVE and !classes.isCharging:
-			velocity.z = move_toward(velocity.z , maxSpeed * direction.z,(acceleration + accelerationMod) * delta)
-			setAnimation = state.RUN
-			mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif is_on_floor() and !classes.isCharging:
-			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
-			if !classes.hasDived:
-				setAnimation = state.IDLE
-		
-		#print(velocity)
-		#print(velocity.rotated(Vector3.UP, targetAngle))
-		
-		if !is_on_floor() and !setVelocityLatch and !classes.isCharging:
-			maxSpeed = _setVelocityLimit(velocity.x, velocity.z)
-			airAcceleration = _setAcceleration(velocity.x, velocity.z)
-			setVelocityLatch = true
-		elif is_on_floor():
-			maxSpeed = DEFAULTSPEED
-			setVelocityLatch = false
-		
-		#print(maxSpeed)
-		#print(airAcceleration)
-		
-		#AIR CONTROL
-		#disable air control during dive
-		if direction.x and !is_on_floor() and setAnimation != state.DIVE:
-			velocity.x = move_toward(velocity.x , maxSpeed * direction.x, airAcceleration * delta)
-			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif !is_on_floor() and setAnimation != state.DIVE:
-			velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
-		
-		if direction.z and !is_on_floor() and setAnimation != state.DIVE:
-			velocity.z = move_toward(velocity.z , maxSpeed * direction.z, airAcceleration * delta)
-			#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
-		elif !is_on_floor() and setAnimation != state.DIVE:
-			velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
+			#print(velocity)
+			#print(velocity.rotated(Vector3.UP, targetAngle))
+			
+			if !is_on_floor() and !setVelocityLatch and !classes.isCharging:
+				maxSpeed = _setVelocityLimit(velocity.x, velocity.z)
+				airAcceleration = _setAcceleration(velocity.x, velocity.z)
+				setVelocityLatch = true
+			elif is_on_floor():
+				maxSpeed = DEFAULTSPEED
+				setVelocityLatch = false
+			
+			#print(maxSpeed)
+			#print(airAcceleration)
+			
+			#AIR CONTROL
+			#disable air control during dive
+			if direction.x and !is_on_floor() and setAnimation != state.DIVE:
+				velocity.x = move_toward(velocity.x , maxSpeed * direction.x, airAcceleration * delta)
+				#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			elif !is_on_floor() and setAnimation != state.DIVE:
+				velocity.x = move_toward(velocity.x , 0, (acceleration + accelerationMod) * delta)
+			
+			if direction.z and !is_on_floor() and setAnimation != state.DIVE:
+				velocity.z = move_toward(velocity.z , maxSpeed * direction.z, airAcceleration * delta)
+				#mesh.global_rotation.y = lerp_angle(mesh.rotation.y, targetAngle, rotationSpeed * delta)
+			elif !is_on_floor() and setAnimation != state.DIVE:
+				velocity.z = move_toward(velocity.z , 0, (acceleration + accelerationMod) * delta)
 
-		if velocity.x <= 3 and velocity.x >= -3:
-			accelerationMod = 0
-		if velocity.z <= 3 and velocity.z >= -3:
-			accelerationMod = 0
+			if velocity.x <= 3 and velocity.x >= -3:
+				accelerationMod = 0
+			if velocity.z <= 3 and velocity.z >= -3:
+				accelerationMod = 0
 
 		move_and_slide()
 
@@ -201,3 +211,11 @@ func _setVelocityLimit(currentVelocityX, currentVelocityZ) -> float:
 func _setAcceleration(currentVelocityX, currentVelocityZ) -> float:
 	var newAcceleration = sqrt((currentVelocityX * currentVelocityX) + (currentVelocityZ * currentVelocityZ))
 	return newAcceleration / 2
+
+
+func _on_death_timer_timeout() -> void:
+	control.visible = true
+
+
+func _on_button_pressed() -> void:
+	get_tree().reload_current_scene()

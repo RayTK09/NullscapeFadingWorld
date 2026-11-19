@@ -66,8 +66,8 @@ func _physics_process(delta: float) -> void:
 					diverJumped = false
 					player.setAnimation = player.state.DIVE
 					player.mesh.global_rotation.y = player.targetAngle
-					$"../slideCollision".disabled = false
-					$"../CollisionShape3D".disabled = true
+					player.defaultCollision.disabled = true
+					player.slideCollision.disabled = false
 					
 					if player.velocity.x > 6:
 						player.velocity.x = 6
@@ -91,5 +91,4 @@ func _physics_process(delta: float) -> void:
 				if diverJumped and player.is_on_floor():
 					hasDived = false
 					diverJumped = false
-					player.disableMovement = false
 					player.setAnimation = player.state.JUMP

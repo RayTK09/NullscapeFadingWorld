@@ -151,3 +151,8 @@ func _on_deathbox_body_entered(body: Node3D) -> void:
 	if body.get("name") == "Player":
 		player.mesh.ragdoll = true
 		player.mesh.skeleton.active = true
+		player.defaultCollision.disabled = true
+		player.slideCollision.disabled = true
+		player.acceleration = 0
+		player.isDead = true
+		player.deathTimer.start()

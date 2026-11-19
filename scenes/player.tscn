@@ -8,9 +8,12 @@
 radius = 0.46191406
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
-size = Vector3(1, 1.008667, 1.5310059)
+size = Vector3(1, 0.9389343, 1.5310059)
 
 [sub_resource type="Theme" id="Theme_qhqgy"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2qw5g"]
+font_size = 60
 
 [node name="Player" type="CharacterBody3D" unique_id=1641364127 node_paths=PackedStringArray("classes")]
 collision_layer = 6
@@ -25,7 +28,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_2qw5g")
 
 [node name="slideCollision" type="CollisionShape3D" parent="." unique_id=1623223580]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9635132, 0.22766113)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9983795, 0.22766113)
 shape = SubResource("BoxShape3D_2qw5g")
 disabled = true
 
@@ -55,9 +58,8 @@ one_shot = true
 [node name="Control" type="Control" parent="." unique_id=1721666286]
 layout_mode = 3
 anchors_preset = 0
-offset_top = -88.0
 offset_right = 1920.0
-offset_bottom = 992.0
+offset_bottom = 1080.0
 mouse_filter = 2
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control" unique_id=547064543]
@@ -74,3 +76,36 @@ offset_transform_enabled = true
 offset_transform_scale = Vector2(30, 7)
 theme = SubResource("Theme_qhqgy")
 show_percentage = false
+
+[node name="deathTimer" type="Timer" parent="." unique_id=1576704590]
+wait_time = 2.0
+
+[node name="deathControl" type="Control" parent="." unique_id=1430458427]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="deathControl" unique_id=249635742]
+layout_mode = 0
+offset_left = 848.0
+offset_top = 504.0
+offset_right = 1116.0
+offset_bottom = 587.0
+
+[node name="Button" type="Button" parent="deathControl/AspectRatioContainer" unique_id=32133896]
+layout_mode = 2
+theme_override_font_sizes/font_size = 44
+text = "Continue?"
+
+[node name="Label" type="Label" parent="deathControl/AspectRatioContainer" unique_id=246970629]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(0, -100)
+text = "You died."
+label_settings = SubResource("LabelSettings_2qw5g")
+
+[connection signal="timeout" from="deathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="pressed" from="deathControl/AspectRatioContainer/Button" to="." method="_on_button_pressed"]
