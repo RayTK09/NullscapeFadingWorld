@@ -60,19 +60,13 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	#I got this camera movement script from the godot wiki
 	#https://docs.godotengine.org/en/stable/tutorials/3d/using_transforms.html
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED or event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotX -= event.screen_relative.x * globals.playerSens
 		rotY -= event.screen_relative.y * globals.playerSens
 		camPivotX.transform.basis = Basis()
 		camPivotY.transform.basis = Basis()
 		camPivotY.rotate_x(rotY)
 		camPivotX.rotate_y(rotX)
-		if !latch and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-			lastMousePos = get_viewport().get_mouse_position()
-			Input.warp_mouse(lastMousePos)
-			latch = true
-		elif !Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
-			latch = false
 		
 		camPivotY.rotation.x = clampf(camPivotY.rotation.x, -(PI / 2), PI / 2)
 		rotY = clampf(rotY, -(PI / 2), PI / 2)
@@ -99,7 +93,6 @@ func _input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	print(lastMousePos)
 	if !stop:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
