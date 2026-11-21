@@ -122,7 +122,8 @@ func placeTiles(spawner):
 
 
 func collapse():
-	var getTiles := [tileStart1.get_children(), tileStart2.get_children(), tileStart3.get_children(), tileStart4.get_children()]
+	await get_tree().physics_frame
+	var getTiles := [spawners[0].get_children(), spawners[1].get_children(), spawners[2].get_children(), spawners[3].get_children()]
 	#note to self: if you want to get the amount of objects in an array, use SIZE() not MAX(), idiot.
 	print("collapse")
 	var getLongestPath = checkLongestTile(getTiles[0].size(), getTiles[1].size(), getTiles[2].size(), getTiles[3].size())
@@ -134,7 +135,6 @@ func collapse():
 	if getSpawner.size() == 1:
 		collapse()
 	getSpawner[getSpawner.size() - 1].startDestruction = true
-	getSpawner.remove_at(getSpawner.size() - 1)
 
 
 func checkLongestTile(spawnerOne, spawnerTwo, spawnerThree, spawnerFour) -> int:
