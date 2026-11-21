@@ -60,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	if collapseStart and !collapseOneTile:
 		collapse()
 		collapseOneTile = true
+	
 
 
 func placeTiles(spawner):
@@ -113,7 +114,7 @@ func placeTiles(spawner):
 			maxGifts += newTile.giftAmount
 			newTile.global_position = connectingTile.connectors[connectorPoint].global_position
 			newTile.global_rotation = connectingTile.connectors[connectorPoint].global_rotation
-			newTile.connect("collapsed", collapse)
+			newTile.collapsed.connect(collapse)
 			return
 		
 	if connectingTile.connectors[connectorPoint].isConnected:
@@ -121,38 +122,37 @@ func placeTiles(spawner):
 
 
 func collapse():
+	var getTiles := [tileStart1.get_children(), tileStart2.get_children(), tileStart3.get_children(), tileStart4.get_children()]
 	#note to self: if you want to get the amount of objects in an array, use SIZE() not MAX(), idiot.
 	print("collapse")
-	var getLongestPath = checkLongestTile(tileStart1.get_children().size(), tileStart2.get_children().size(), tileStart3.get_children().size(), tileStart4.get_children().size())
+	var getLongestPath = checkLongestTile(getTiles[0].size(), getTiles[1].size(), getTiles[2].size(), getTiles[3].size())
 	if getLongestPath == 4:
 		return
-	var getSpawner = spawners[getLongestPath].get_children()
+	var getSpawner : Array = getTiles[getLongestPath]
+	print(getLongestPath)
+	print(getSpawner)
 	if getSpawner.size() == 1:
-		return
+		collapse()
 	getSpawner[getSpawner.size() - 1].startDestruction = true
+	getSpawner.remove_at(getSpawner.size() - 1)
 
 
 func checkLongestTile(spawnerOne, spawnerTwo, spawnerThree, spawnerFour) -> int:
-	if spawnerOne > spawnerTwo and spawnerOne > spawnerThree and spawnerOne > spawnerFour:
+	if spawnerOne > spawnerTwo and spawnerOne > spawnerThree and spawnerOne > spawnerFour and spawnerOne != 1:
 		return 0
-	elif spawnerTwo > spawnerOne and spawnerTwo > spawnerThree and spawnerTwo > spawnerFour:
+	elif spawnerTwo > spawnerOne and spawnerTwo > spawnerThree and spawnerTwo > spawnerFour and spawnerTwo != 1:
 		return 1
-	elif spawnerThree > spawnerOne and spawnerThree > spawnerTwo and spawnerThree > spawnerFour:
+	elif spawnerThree > spawnerOne and spawnerThree > spawnerTwo and spawnerThree > spawnerFour and spawnerThree != 1:
 		return 2
-	elif spawnerFour > spawnerOne and spawnerFour > spawnerTwo and spawnerFour > spawnerThree:
+	elif spawnerFour > spawnerOne and spawnerFour > spawnerTwo and spawnerFour > spawnerThree and spawnerFour != 1: 
 		return 3
 	
-	var chooseRandom = rng.randi_range(1, 4)
-	if chooseRandom == 1:
-		return 0
-	elif chooseRandom == 2:
-		return 1
-	elif chooseRandom == 3:
-		return 2
-	elif chooseRandom == 4:
-		return 3
-	else:
-		return 4
+	var listSpawners := [spawnerOne, spawnerTwo, spawnerThree, spawnerFour]
+	for i in spawners.size():
+		#print(listSpawners[i])
+		if listSpawners[i] != 1:
+			return i
+	return 4
 
 
 

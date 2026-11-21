@@ -29,5 +29,5 @@ func _process(delta: float) -> void:
 	if startDestruction:
 		collapseTimer = get_tree().create_timer(5)
 		await collapseTimer.timeout
-		collapsed.emit()
 		queue_free()
+		collapsed.emit()
