@@ -1,6 +1,6 @@
 [gd_resource type="ArrayMesh" format=4 uid="uid://bwdqirb4v2vxj"]
 
-[ext_resource type="Texture2D" uid="uid://d18cptsipo03h" path="res://assets/other/collapseParticle_0.png" id="1_h815j"]
+[ext_resource type="Texture2D" uid="uid://b0fqa3gjfqii3" path="res://assets/other/collapseParticle_0.png" id="1_h815j"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hymvm"]
 resource_name = "material_0"
