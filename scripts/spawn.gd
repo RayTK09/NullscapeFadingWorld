@@ -122,6 +122,7 @@ func placeTiles(spawner):
 
 
 func collapse():
+	#this was a stupid easy fix. why.
 	await get_tree().physics_frame
 	var getTiles := [spawners[0].get_children(), spawners[1].get_children(), spawners[2].get_children(), spawners[3].get_children()]
 	#note to self: if you want to get the amount of objects in an array, use SIZE() not MAX(), idiot.
@@ -129,6 +130,10 @@ func collapse():
 	var getLongestPath = checkLongestTile(getTiles[0].size(), getTiles[1].size(), getTiles[2].size(), getTiles[3].size())
 	if getLongestPath == 4:
 		return
+	if getLongestPath == 5:
+		print("something went wrong with the collapse")
+		return
+	
 	var getSpawner : Array = getTiles[getLongestPath]
 	print(getLongestPath)
 	print(getSpawner)
@@ -146,13 +151,26 @@ func checkLongestTile(spawnerOne, spawnerTwo, spawnerThree, spawnerFour) -> int:
 		return 2
 	elif spawnerFour > spawnerOne and spawnerFour > spawnerTwo and spawnerFour > spawnerThree and spawnerFour != 1: 
 		return 3
-	
+		
 	var listSpawners := [spawnerOne, spawnerTwo, spawnerThree, spawnerFour]
-	for i in spawners.size():
-		#print(listSpawners[i])
-		if listSpawners[i] != 1:
+	for i in listSpawners.size():
+		if listSpawners[i] > 1:
 			return i
-	return 4
+	
+	if spawnerOne == 1:
+		return 0
+	elif spawnerTwo == 1:
+		return 1
+	elif spawnerThree == 1:
+		return 2
+	elif spawnerFour == 1:
+		return 3
+	
+	if spawnerOne == 0 and spawnerTwo == 0 and spawnerThree == 0 and spawnerFour == 0:
+		return 4
+	
+			
+	return 5
 
 
 
