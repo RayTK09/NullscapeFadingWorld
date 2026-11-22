@@ -4,9 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://p0gxfv2i60ex" path="res://assets/tiles/straightTile.gltf" id="2_bmdr2"]
 [ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="2_ds77n"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="4_3n3u7"]
+[ext_resource type="ArrayMesh" uid="uid://bwdqirb4v2vxj" path="res://assets/other/new_array_mesh.tres" id="5_cs03i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_78ya6"]
 size = Vector3(6, 0.30996093, 3)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cs03i"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(3, 0.065, 1.5)
+gravity = Vector3(0, 9.8, 0)
 
 [node name="straightTile" type="Marker3D" unique_id=971204657]
 script = ExtResource("1_le08w")
@@ -46,3 +53,15 @@ script = ExtResource("4_3n3u7")
 
 [node name="blockbench_export" parent="control" unique_id=1930973841 instance=ExtResource("2_bmdr2")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="control" unique_id=1172694001]
+emitting = false
+amount = 100
+lifetime = 5.0
+speed_scale = 2.0
+explosiveness = 0.05
+randomness = 1.0
+fixed_fps = 0
+visibility_aabb = AABB(-54, -54, -54, 100, 100, 100)
+process_material = SubResource("ParticleProcessMaterial_cs03i")
+draw_pass_1 = ExtResource("5_cs03i")

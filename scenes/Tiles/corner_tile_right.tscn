@@ -4,9 +4,22 @@
 [ext_resource type="PackedScene" uid="uid://cbbtaxw6cvmef" path="res://assets/tiles/cornerTileRight.gltf" id="2_25fy5"]
 [ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="2_v8bcu"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_6eaxh"]
+[ext_resource type="ArrayMesh" uid="uid://bwdqirb4v2vxj" path="res://assets/other/new_array_mesh.tres" id="5_htit2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v8bcu"]
 size = Vector3(5.9972534, 0.31172484, 2.9814453)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_htit2"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(3, 0.065, 1.5)
+gravity = Vector3(0, 9.8, 0)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mh6xd"]
+lifetime_randomness = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(3, 0.065, 1.5)
+gravity = Vector3(0, 9.8, 0)
 
 [node name="cornerTileRight" type="Marker3D" unique_id=1958814681]
 script = ExtResource("1_pxwkv")
@@ -60,3 +73,29 @@ script = ExtResource("3_6eaxh")
 
 [node name="blockbench_export" parent="control" unique_id=14307225 instance=ExtResource("2_25fy5")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.5000001, 0, 6.5567086e-08)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="control" unique_id=88154355]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+layers = 2
+emitting = false
+amount = 50
+lifetime = 5.0
+speed_scale = 2.0
+explosiveness = 0.05
+randomness = 1.0
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_htit2")
+draw_pass_1 = ExtResource("5_htit2")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="control" unique_id=1951963681]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 2.9999998, 0, 1.5000001)
+layers = 2
+emitting = false
+amount = 50
+lifetime = 5.0
+speed_scale = 2.0
+explosiveness = 0.05
+randomness = 1.0
+fixed_fps = 0
+process_material = SubResource("ParticleProcessMaterial_mh6xd")
+draw_pass_1 = ExtResource("5_htit2")

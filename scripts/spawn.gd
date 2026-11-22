@@ -135,8 +135,6 @@ func collapse():
 		return
 	
 	var getSpawner : Array = getTiles[getLongestPath]
-	print(getLongestPath)
-	print(getSpawner)
 	if getSpawner.size() == 1:
 		collapse()
 	getSpawner[getSpawner.size() - 1].startDestruction = true

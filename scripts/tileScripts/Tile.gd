@@ -5,6 +5,9 @@ signal collapsed
 @onready var connectors := $control/connectors.get_children()
 @onready var Collision := $control/Area3D
 @onready var checkCollision := $control/Area3D
+@onready var particle1 := $control/GPUParticles3D
+@onready var particle2 := $control/GPUParticles3D2
+@onready var particle3 := $control/GPUParticles3D3
 
 @export var giftAmount : int = 0
 @export var type : String
@@ -28,6 +31,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if startDestruction:
 		collapseTimer = get_tree().create_timer(5)
+		particle1.emitting = true
+		if particle2 != null:
+			particle2.emitting = true
+		if particle3 != null:
+			particle3.emitting = true
 		await collapseTimer.timeout
 		queue_free()
 		collapsed.emit()
