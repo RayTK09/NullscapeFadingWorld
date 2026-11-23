@@ -30,12 +30,12 @@ func _physics_process(delta: float) -> void:
 		diverJumped = false
 
 	#holy this is hard to work with
-	if Input.is_action_pressed("Ability") and !player.stop and abilityTimer.is_stopped():
+	if Input.is_action_pressed("Ability") and !player.stop:
 		match player.playerClass:
 			classType.CHARGER:
-				if player.is_on_floor():
+				if player.is_on_floor() and abilityTimer.is_stopped():
 					player.maxSpeed = 15
-					player.accelerationMod = 30
+					player.accelerationMod = 40
 					player.setAnimation = player.state.CHARGE
 					isCharging = true
 					player.velocity.x = move_toward(player.velocity.x, player.maxSpeed * player.lastDir.x, delta * player.accelerationMod)
@@ -53,12 +53,15 @@ func _physics_process(delta: float) -> void:
 					
 					if Input.is_action_just_pressed("Jump"):
 						abilityTimer.start()
+				elif !player.is_on_floor() and !isCharging:
+					player.velocity.y = -15
 			
 			classType.DIVER:
-				if !hasDived and player.velocity:
+				if !hasDived and player.velocity.abs().x > 0.5 or !hasDived and player.velocity.abs().z > 0.5:
 					player.speedMultiplier = 2.4
 					setDiverVelocity = player.maxSpeed * player.speedMultiplier
-					player.velocity = player.velocity.normalized() * Vector3(setDiverVelocity, 0, setDiverVelocity)
+					print(setDiverVelocity)
+					player.velocity = player.direction * Vector3(setDiverVelocity, 0, setDiverVelocity)
 					player.targetAngle = Vector3.FORWARD.signed_angle_to(player.velocity, Vector3.UP)
 					player.velocity.y += 2
 					player.accelerationMod = 20
@@ -69,10 +72,15 @@ func _physics_process(delta: float) -> void:
 					player.defaultCollision.disabled = true
 					player.slideCollision.disabled = false
 					
+					await get_tree().physics_frame
 					if player.velocity.x > 6:
 						player.velocity.x = 6
+					if player.velocity.x < -6:
+						player.velocity.x = -6
 					if player.velocity.z > 6:
 						player.velocity.z = 6
+					if player.velocity.z < -6:
+						player.velocity.z = -6
 	else:
 		match  player.playerClass:
 			classType.CHARGER:

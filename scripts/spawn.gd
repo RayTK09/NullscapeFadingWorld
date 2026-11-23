@@ -18,7 +18,7 @@ extends Node3D
 
 @export var player : player
 
-var tileLimit : int = 3
+var tileLimit : int = 2
 var tileTypes : Array
 var rng = RandomNumberGenerator.new()
 var maxGifts : int = 0
@@ -33,7 +33,7 @@ var collapseOneTile := false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	#AHHHHHHHH THIS TOOK WAY TOO LONG TO FIGURE OUT
-	tileLimit *= globals.currentLevel
+	tileLimit **= globals.currentLevel
 	globals.collectedGifts = 0
 	maxGifts = 0
 	spawners = [tileStart1, tileStart2, tileStart3, tileStart4]
@@ -60,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	if collapseStart and !collapseOneTile:
 		collapse()
 		collapseOneTile = true
+		globals.collaseStarted = true
 	
 
 
@@ -123,7 +124,8 @@ func placeTiles(spawner):
 
 func collapse():
 	#this was a stupid easy fix. why.
-	await get_tree().physics_frame
+	if is_inside_tree():
+		await get_tree().physics_frame
 	var getTiles := [spawners[0].get_children(), spawners[1].get_children(), spawners[2].get_children(), spawners[3].get_children()]
 	#note to self: if you want to get the amount of objects in an array, use SIZE() not MAX(), idiot.
 	print("collapse")
@@ -182,6 +184,7 @@ func _on_beacon_body_entered(body: Node3D) -> void:
 
 func _on_to_lobby_timeout() -> void:
 	globals.currentLevel += 1
+	globals.collaseStarted = false
 	get_tree().reload_current_scene()
 
 

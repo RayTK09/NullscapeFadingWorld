@@ -2,12 +2,14 @@ extends Node3D
 
 signal collapsed
 
+@onready var globals : global = get_node("/root/Global")
 @onready var connectors := $control/connectors.get_children()
 @onready var Collision := $control/Area3D
 @onready var checkCollision := $control/Area3D
 @onready var particle1 := $control/GPUParticles3D
 @onready var particle2 := $control/GPUParticles3D2
 @onready var particle3 := $control/GPUParticles3D3
+@onready var goldenGifts := $control/goldenGifts
 
 @export var giftAmount : int = 0
 @export var type : String
@@ -15,6 +17,7 @@ signal collapsed
 var rng = RandomNumberGenerator.new()
 var collapseTimer
 var startDestruction := false
+var latch := false
 
 
 func _ready() -> void:
@@ -39,3 +42,7 @@ func _process(delta: float) -> void:
 		await collapseTimer.timeout
 		queue_free()
 		collapsed.emit()
+	
+	if globals.collaseStarted and !latch and goldenGifts != null:
+		goldenGifts.visible = true
+		latch = true

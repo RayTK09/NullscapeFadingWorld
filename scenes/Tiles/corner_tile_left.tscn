@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://82dqv0nxwmix" path="res://scripts/tileScripts/Tile.gd" id="1_kwor3"]
 [ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="2_k37gc"]
 [ext_resource type="PackedScene" uid="uid://so4jofblx524" path="res://assets/tiles/cornerTileLeft.gltf" id="2_l2mqe"]
+[ext_resource type="PackedScene" uid="uid://n0gto10t2xj0" path="res://scenes/golden_gifts.tscn" id="3_11qbd"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_clc6f"]
 [ext_resource type="ArrayMesh" uid="uid://bwdqirb4v2vxj" path="res://assets/other/new_array_mesh.tres" id="5_is7h5"]
 
@@ -64,6 +65,31 @@ transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 
 
 [node name="gifts7" parent="control/tileGifts" unique_id=1353893875 instance=ExtResource("2_k37gc")]
 transform = Transform3D(0.33333334, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 1, 3.333, -1.2663332)
+
+[node name="goldenGifts" type="Node3D" parent="control" unique_id=1951566933]
+transform = Transform3D(-6, 0, 2.6226832e-07, 0, 0.3, 0, -5.2453663e-07, 0, -3, 0.6, 0, -1.0490733e-07)
+visible = false
+
+[node name="goldenGifts" parent="control/goldenGifts" unique_id=1343070332 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, 0.18330002, 3.333, 0)
+
+[node name="goldenGifts2" parent="control/goldenGifts" unique_id=870382212 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.3330002, 0, 0, 0, 0.333, 6.663799e-05, 3.3330002, 0)
+
+[node name="goldenGifts3" parent="control/goldenGifts" unique_id=845374594 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.3330002, 0, 0, 0, 0.333, -0.19980001, 3.3330002, 0)
+
+[node name="goldenGifts4" parent="control/goldenGifts" unique_id=1993873626 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.3330002, 0, 0, 0, 0.333, -0.39973336, 3.3330002, 0)
+
+[node name="goldenGifts5" parent="control/goldenGifts" unique_id=465052463 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.3330002, 0, 0, 0, 0.333, -0.39973336, 3.3330002, 0.43290004)
+
+[node name="goldenGifts6" parent="control/goldenGifts" unique_id=1867663684 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.3330002, 0, 0, 0, 0.333, -0.39973336, 3.3330002, 0.8658001)
+
+[node name="goldenGifts7" parent="control/goldenGifts" unique_id=31833496 instance=ExtResource("3_11qbd")]
+transform = Transform3D(0.167, 0, 0, 0, 3.3330002, 0, 0, 0, 0.333, -0.39973336, 3.3330002, 1.2654002)
 
 [node name="connectors" type="Node3D" parent="control" unique_id=2020960232]
 

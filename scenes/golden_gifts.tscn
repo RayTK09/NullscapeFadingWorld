@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://n0gto10t2xj0"]
+
+[ext_resource type="PackedScene" uid="uid://c6e3jqr5oakco" path="res://assets/morbs/fleetingFate.gltf" id="1_uomfh"]
+[ext_resource type="Script" uid="uid://dlf0jamcqfwjx" path="res://scripts/tileScripts/gifts.gd" id="1_yj0ip"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yj0ip"]
+
+[node name="goldenGifts" type="Node3D" unique_id=1343070332]
+script = ExtResource("1_yj0ip")
+giftType = "goldenGift"
+
+[node name="control" type="Node3D" parent="." unique_id=360802296]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="control" unique_id=2081997647]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=1827400980]
+shape = SubResource("BoxShape3D_yj0ip")
+
+[node name="blockbench_export" parent="control" unique_id=645407090 instance=ExtResource("1_uomfh")]
+transform = Transform3D(2.19, 0, 0, 0, 2.19, 0, 0, 0, 2.19, 0, 0, 0)

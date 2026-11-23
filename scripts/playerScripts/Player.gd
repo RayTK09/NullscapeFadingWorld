@@ -171,8 +171,8 @@ func _physics_process(delta: float) -> void:
 				maxSpeed = DEFAULTSPEED
 				setVelocityLatch = false
 			
-			#print(maxSpeed)
-			#print(airAcceleration)
+			#print(velocity)
+			#print(acceleration)
 			
 			#AIR CONTROL
 			#disable air control during dive
@@ -192,17 +192,21 @@ func _physics_process(delta: float) -> void:
 				accelerationMod = 0
 			if velocity.z <= 3 and velocity.z >= -3:
 				accelerationMod = 0
-
+			
 		move_and_slide()
 
 
 #set our last velocity is to the max velocity while in air
 func _setVelocityLimit(currentVelocityX, currentVelocityZ) -> float:
 	var newMaxSpeed = sqrt((currentVelocityX * currentVelocityX) + (currentVelocityZ * currentVelocityZ))
+	if newMaxSpeed < maxSpeed:
+		newMaxSpeed = maxSpeed
 	return newMaxSpeed
 	
 func _setAcceleration(currentVelocityX, currentVelocityZ) -> float:
 	var newAcceleration = sqrt((currentVelocityX * currentVelocityX) + (currentVelocityZ * currentVelocityZ))
+	if newAcceleration < airAcceleration:
+		newAcceleration = airAcceleration
 	return newAcceleration / 2
 
 
@@ -211,4 +215,6 @@ func _on_death_timer_timeout() -> void:
 
 
 func _on_button_pressed() -> void:
+	globals.goldenGiftsCollected = 0
+	globals.collaseStarted = false
 	get_tree().reload_current_scene()

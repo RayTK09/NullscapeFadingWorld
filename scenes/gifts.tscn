@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://cadmlxx4t8pmk"]
 
 [ext_resource type="Script" uid="uid://dlf0jamcqfwjx" path="res://scripts/tileScripts/gifts.gd" id="1_k2biq"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_78ya6"]
+[ext_resource type="PackedScene" uid="uid://ccxqyyihyem8d" path="res://assets/morbs/hope.gltf" id="2_x4ge6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
 
@@ -12,8 +11,8 @@ script = ExtResource("1_k2biq")
 [node name="control" type="Node3D" parent="." unique_id=1780919408]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="control" unique_id=961427540]
-mesh = SubResource("BoxMesh_78ya6")
+[node name="blockbench_export" parent="control" unique_id=1655331622 instance=ExtResource("2_x4ge6")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="control" unique_id=1552779513]
 collision_layer = 0
@@ -21,5 +20,3 @@ collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="control/Area3D" unique_id=406281964]
 shape = SubResource("BoxShape3D_2qw5g")
-
-[connection signal="body_entered" from="control/Area3D" to="." method="_on_area_3d_body_entered"]

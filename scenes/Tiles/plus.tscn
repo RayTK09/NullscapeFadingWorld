@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://vbc8ilx2wh25" path="res://assets/tiles/plusTile.gltf" id="2_lrsl3"]
 [ext_resource type="Script" uid="uid://dj48ufyectjos" path="res://scripts/tileScripts/connectorNode.gd" id="3_lrsl3"]
 [ext_resource type="PackedScene" uid="uid://cadmlxx4t8pmk" path="res://scenes/gifts.tscn" id="4_gshvx"]
+[ext_resource type="PackedScene" uid="uid://n0gto10t2xj0" path="res://scenes/golden_gifts.tscn" id="5_dllo8"]
 [ext_resource type="ArrayMesh" uid="uid://bwdqirb4v2vxj" path="res://assets/other/new_array_mesh.tres" id="5_rcukl"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2qw5g"]
@@ -62,42 +63,98 @@ transform = Transform3D(-6, 0, 2.6226832e-07, 0, 0.3, 0, -5.2453663e-07, 0, -3, 
 
 [node name="gifts" parent="control/tileGifts" unique_id=1537245553 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.36666667, 3.3333333, 0)
+giftType = "gift"
 
 [node name="gifts2" parent="control/tileGifts" unique_id=988343903 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, 0.13333333, 3.3333333, 0)
+giftType = "gift"
 
 [node name="gifts3" parent="control/tileGifts" unique_id=102047153 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.08333333, 3.3333333, 0)
+giftType = "gift"
 
 [node name="gifts4" parent="control/tileGifts" unique_id=1378050975 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999998, 3.3333333, 0)
+giftType = "gift"
 
 [node name="gifts5" parent="control/tileGifts" unique_id=1552820481 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.49999994, 3.3333333, 0)
+giftType = "gift"
 
 [node name="gifts6" parent="control/tileGifts" unique_id=149879007 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.73333323, 3.3333333, 0)
+giftType = "gift"
 
 [node name="gifts7" parent="control/tileGifts" unique_id=364035405 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.9333333, 3.3333333, 1.4210855e-14)
+giftType = "gift"
 
 [node name="gifts8" parent="control/tileGifts" unique_id=927444627 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999992, 3.3333333, 0.43333337)
+giftType = "gift"
 
 [node name="gifts9" parent="control/tileGifts" unique_id=1246269995 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999983, 3.3333333, 0.9333334)
+giftType = "gift"
 
 [node name="gifts10" parent="control/tileGifts" unique_id=1287734286 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.29999986, 3.3333333, 1.3)
+giftType = "gift"
 
 [node name="gifts11" parent="control/tileGifts" unique_id=976480475 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999992, 3.3333333, -1.3000001)
+giftType = "gift"
 
 [node name="gifts12" parent="control/tileGifts" unique_id=1915701842 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, 0, 0, 3.3333333, 0, 0, 0, 0.33333334, -0.29999983, 3.3333333, -0.86666673)
+giftType = "gift"
 
 [node name="gifts13" parent="control/tileGifts" unique_id=927048389 instance=ExtResource("4_gshvx")]
 transform = Transform3D(0.16666667, 0, -8.881784e-16, 0, 3.3333333, 0, 1.7763568e-15, 0, 0.33333334, -0.29999986, 3.3333333, -0.43333352)
+giftType = "gift"
+
+[node name="goldenGifts" type="Node3D" parent="control" unique_id=870861200]
+transform = Transform3D(-6, 0, 2.6226832e-07, 0, 0.3, 0, -5.2453663e-07, 0, -3, -2.4, 0, -1.5000004)
+visible = false
+
+[node name="goldenGifts" parent="control/goldenGifts" unique_id=1343070332 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, 0.26, 3.333, 0)
+
+[node name="goldenGifts2" parent="control/goldenGifts" unique_id=1523611801 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, 0.026199996, 3.333, 0)
+
+[node name="goldenGifts3" parent="control/goldenGifts" unique_id=1608304890 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.19090001, 3.333, 0)
+
+[node name="goldenGifts4" parent="control/goldenGifts" unique_id=650161584 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, 0)
+
+[node name="goldenGifts8" parent="control/goldenGifts" unique_id=1794917403 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, -0.43290004)
+
+[node name="goldenGifts9" parent="control/goldenGifts" unique_id=1564269371 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, -0.8658001)
+
+[node name="goldenGifts10" parent="control/goldenGifts" unique_id=96768446 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, -1.2987001)
+
+[node name="goldenGifts11" parent="control/goldenGifts" unique_id=718048076 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, 0.43290007)
+
+[node name="goldenGifts12" parent="control/goldenGifts" unique_id=1364410255 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, 0.9324001)
+
+[node name="goldenGifts13" parent="control/goldenGifts" unique_id=1924313946 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.40800002, 3.333, 1.2987001)
+
+[node name="goldenGifts5" parent="control/goldenGifts" unique_id=1174407496 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.60840005, 3.333, 0)
+
+[node name="goldenGifts6" parent="control/goldenGifts" unique_id=1313731332 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -0.84220004, 3.333, 0)
+
+[node name="goldenGifts7" parent="control/goldenGifts" unique_id=1262688680 instance=ExtResource("5_dllo8")]
+transform = Transform3D(0.167, 0, 0, 0, 3.333, 0, 0, 0, 0.333, -1.0426, 3.333, 0)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="control" unique_id=1266593301]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)

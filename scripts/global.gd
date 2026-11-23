@@ -7,3 +7,5 @@ extends Node
 @export var currentLevel : int = 1
 @export var collectedGifts : int = 0
 @export var chooseClass : int = 0
+@export var goldenGiftsCollected := 0
+@export var collaseStarted := false
