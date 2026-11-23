@@ -16,6 +16,8 @@ WASD to move, SPACE to jump, and E to use your ability. You can lock the mouse b
 There are orbs you must collect. Collect them all and the way to the next level opens up,
 located at the center of the map where you spawned. Golden cubes are meant to be a form of currency. **But there is no shop implemented yet, so you'll have to wait for the next patch.**
 
+-note: for anyone on linux like me, the game might have a random bug where the level infinitely creates tiles. just restart the game by opening and closing it and using the windows version under proton is not recommended as the game does not allow you to lock the mouse.
+
 # link to the latest game files.
 https://github.com/RayTK09/NullscapeFadingWorld/releases/tag/patch0
 
