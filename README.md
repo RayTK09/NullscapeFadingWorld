@@ -16,10 +16,8 @@ WASD to move, SPACE to jump, and E to use your ability. You can lock the mouse b
 There are orbs you must collect. Collect them all and the way to the next level opens up,
 located at the center of the map where you spawned. Golden cubes are meant to be a form of currency. **But there is no shop implemented yet, so you'll have to wait for the next patch.**
 
-# Patch -1
-Charger and diver are in the game now. Press E to activate your ability!<br>
--Charger moves quickly, but changing direction is slow<br>
--Diver dives. Yep.
+# link to the latest game files.
+https://github.com/RayTK09/NullscapeFadingWorld/releases/tag/patch0
 
 # The original game
 https://www.roblox.com/games/129279692364812/Nullscape
